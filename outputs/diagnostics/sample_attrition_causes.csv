@@ -1,0 +1,41 @@
+pair,series,market,status,n_dates,n_sole_cause,per_year,span,top_labels
+AUD,AUDUSD_PX_LAST,FX,uncovered,73,2,,2025-09-22 -> 2025-12-31,
+AUD,IRON_PX_LAST,SGX,src_na,43,31,3.4,2013-04-30 -> 2020-12-25,unlabelled x22; Good Friday x4; Christmas x3; Chile Sts Peter & Paul (observed) x2; New Year's Eve x2; Christmas / Boxing Day (observed) x2
+AUD,IRON_PX_LAST,SGX,no_row,11,0,0.9,2014-01-01 -> 2025-01-01,New Year x7; New Year (observed) x2; New Year's Eve (observed) / New Year x2
+AUD,IRON_PX_LAST,SGX,uncovered,851,0,,2010-01-01 -> 2013-04-05,
+AUD,DXY_PX_LAST,dollar index (US),src_na,190,46,12.0,2010-01-01 -> 2025-11-11,unlabelled x25; US MLK Day x16; US Labor / CA Labour Day x16; US Thanksgiving x15; US Memorial / UK Spring BH x13; US Presidents Day x13
+AUD,DXY_PX_LAST,dollar index (US),uncovered,33,0,,2025-11-17 -> 2025-12-31,
+AUD,BCOM_PX_LAST,BCOM (US),no_row,143,8,9.1,2010-01-18 -> 2025-09-01,US MLK Day x16; Good Friday x16; US Labor / CA Labour Day x16; US Thanksgiving x15; US Memorial / UK Spring BH x13; US Presidents Day x13
+AUD,BCOM_PX_LAST,BCOM (US),uncovered,72,0,,2010-01-01 -> 2025-12-31,
+AUD,IRON_FUT_CUR_GEN_TICKER,SGX,no_row,11,0,0.9,2014-01-01 -> 2025-01-01,New Year x7; New Year (observed) x2; New Year's Eve (observed) / New Year x2
+AUD,IRON_FUT_CUR_GEN_TICKER,SGX,uncovered,851,0,,2010-01-01 -> 2013-04-05,
+CAD,USDCAD_PX_LAST,FX,uncovered,71,2,,2025-09-22 -> 2025-12-31,
+CAD,WTI_PX_LAST,NYMEX,no_row,141,0,9.0,2010-01-18 -> 2025-09-01,US MLK Day x16; US Labor / CA Labour Day x16; US Thanksgiving x15; Good Friday x14; US Memorial / UK Spring BH x13; US Presidents Day x13
+CAD,WTI_PX_LAST,NYMEX,uncovered,67,0,,2010-01-01 -> 2025-12-31,
+CAD,DXY_PX_LAST,dollar index (US),src_na,190,60,12.0,2010-01-01 -> 2025-11-11,unlabelled x25; US MLK Day x16; US Labor / CA Labour Day x16; US Thanksgiving x15; US Memorial / UK Spring BH x13; US Presidents Day x13
+CAD,DXY_PX_LAST,dollar index (US),uncovered,31,0,,2025-11-17 -> 2025-12-31,
+CAD,BCOM_PX_LAST,BCOM (US),no_row,143,2,9.1,2010-01-18 -> 2025-09-01,US MLK Day x16; Good Friday x16; US Labor / CA Labour Day x16; US Thanksgiving x15; US Memorial / UK Spring BH x13; US Presidents Day x13
+CAD,BCOM_PX_LAST,BCOM (US),uncovered,70,0,,2010-01-01 -> 2025-12-31,
+CAD,WTI_FUT_CUR_GEN_TICKER,NYMEX,no_row,141,0,8.8,2010-01-18 -> 2025-09-01,US MLK Day x16; US Labor / CA Labour Day x16; US Thanksgiving x15; Good Friday x14; US Memorial / UK Spring BH x13; US Presidents Day x13
+CAD,WTI_FUT_CUR_GEN_TICKER,NYMEX,uncovered,1,0,,2010-01-01 -> 2010-01-01,
+CLP,USDCLP_PX_LAST,Chile (CLP onshore),no_row,274,228,17.1,2011-04-22 -> 2025-12-08,unlabelled x145; Good Friday x12; Chile Virgen del Carmen x9; Chile Fiestas Patrias x9; US Columbus / CA Thanksgiving x6; Chile Immaculate Conception x6
+CLP,USDCLP_PX_LAST,Chile (CLP onshore),uncovered,1,0,,2010-01-01 -> 2010-01-01,
+CLP,COPPER_PX_LAST,LME,no_row,130,69,8.1,2010-04-02 -> 2025-12-26,Good Friday x16; Easter Monday x16; UK Summer BH x16; unlabelled x16; US Memorial / UK Spring BH x12; UK Early May BH x10
+CLP,COPPER_PX_LAST,LME,uncovered,1,0,,2010-01-01 -> 2010-01-01,
+CLP,DXY_PX_LAST,dollar index (US),src_na,190,49,12.0,2010-01-01 -> 2025-11-11,unlabelled x25; US MLK Day x16; US Labor / CA Labour Day x16; US Thanksgiving x15; US Memorial / UK Spring BH x13; US Presidents Day x13
+CLP,DXY_PX_LAST,dollar index (US),uncovered,32,0,,2025-11-17 -> 2025-12-31,
+CLP,BCOM_PX_LAST,BCOM (US),no_row,143,0,9.1,2010-01-18 -> 2025-09-01,US MLK Day x16; Good Friday x16; US Labor / CA Labour Day x16; US Thanksgiving x15; US Memorial / UK Spring BH x13; US Presidents Day x13
+CLP,BCOM_PX_LAST,BCOM (US),uncovered,71,6,,2010-01-01 -> 2025-12-31,
+CLP,HG1_PX_LAST,COMEX,src_na,10,0,0.6,2010-12-24 -> 2025-04-18,Christmas x2; Christmas Eve / Christmas (observed) x1; US Presidents Day x1; US Memorial / UK Spring BH x1; Christmas (observed) / Boxing Day x1; New Year (observed) x1
+CLP,HG1_PX_LAST,COMEX,no_row,131,0,8.3,2010-01-18 -> 2025-09-01,US MLK Day x16; US Labor / CA Labour Day x15; US Thanksgiving x15; Good Friday x13; US Memorial / UK Spring BH x12; US Independence Day x12
+CLP,HG1_PX_LAST,COMEX,uncovered,65,0,,2010-01-01 -> 2025-12-31,
+NOK,USDNOK_PX_LAST,FX,no_row,1,0,0.1,2024-01-01 -> 2024-01-01,New Year's Eve (observed) / New Year x1
+NOK,BRENT_PX_LAST,ICE,no_row,42,0,2.6,2010-04-02 -> 2025-12-25,Good Friday x16; New Year x8; Christmas x7; Christmas (observed) / Boxing Day x3; New Year (observed) x2; Christmas / Boxing Day (observed) x2
+NOK,BRENT_PX_LAST,ICE,uncovered,1,0,,2010-01-01 -> 2010-01-01,
+NOK,DXY_PX_LAST,dollar index (US),src_na,190,60,12.0,2010-01-01 -> 2025-11-11,unlabelled x25; US MLK Day x16; US Labor / CA Labour Day x16; US Thanksgiving x15; US Memorial / UK Spring BH x13; US Presidents Day x13
+NOK,DXY_PX_LAST,dollar index (US),uncovered,33,0,,2025-11-17 -> 2025-12-31,
+NOK,BCOM_PX_LAST,BCOM (US),no_row,143,0,9.1,2010-01-18 -> 2025-09-01,US MLK Day x16; Good Friday x16; US Labor / CA Labour Day x16; US Thanksgiving x15; US Memorial / UK Spring BH x13; US Presidents Day x13
+NOK,BCOM_PX_LAST,BCOM (US),uncovered,72,36,,2010-01-01 -> 2025-12-31,
+NOK,BRENT_FUT_CUR_GEN_TICKER,ICE,src_na,2,1,0.1,2010-08-30 -> 2023-01-02,UK Summer BH x1; New Year (observed) x1
+NOK,BRENT_FUT_CUR_GEN_TICKER,ICE,no_row,42,0,2.6,2010-04-02 -> 2025-12-25,Good Friday x16; New Year x8; Christmas x7; Christmas (observed) / Boxing Day x3; New Year (observed) x2; Christmas / Boxing Day (observed) x2
+NOK,BRENT_FUT_CUR_GEN_TICKER,ICE,uncovered,1,0,,2010-01-01 -> 2010-01-01,

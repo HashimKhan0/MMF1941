@@ -1,0 +1,105 @@
+series,date,days_spanned,price,prev_price,return_%,z,roll_day,event
+AUDUSD_PX_LAST,2010-05-20,1,0.8172,0.8472,-3.6052931343729613,-5.406911143779043,False,May-2010 euro-area sovereign stress (German naked-short ban 18/19-May; rebound 27-May)
+AUDUSD_PX_LAST,2010-05-27,1,0.8514,0.8215,3.575011591672935,5.361497468781415,False,May-2010 euro-area sovereign stress (German naked-short ban 18/19-May; rebound 27-May)
+AUDUSD_PX_LAST,2020-03-12,1,0.6236,0.6484,-3.899865267789947,-5.848685305118098,False,"COVID-19 crash / USD funding squeeze; OPEC+ collapse 6-Mar, price war 9-Mar"
+AUDUSD_PX_LAST,2020-03-18,1,0.5773,0.6,-3.8567593149258417,-5.784038673563495,False,"COVID-19 crash / USD funding squeeze; OPEC+ collapse 6-Mar, price war 9-Mar"
+AUDUSD_PX_LAST,2025-04-04,1,0.604,0.6329,-4.673823384644483,-7.009401677094005,False,US 'Liberation Day' tariffs (2-Apr-2025) and China retaliation (4-Apr)
+BCOM_PX_LAST,2011-05-05,1,161.0196,168.9085,-4.783105147864222,-5.254315910251375,False,Commodity sell-off: silver and oil crash (5-May-2011)
+BCOM_PX_LAST,2022-03-09,1,125.8394,132.6339,-5.258621040656324,-5.776677565250863,False,Russia-Ukraine commodity spike and reversal (Brent -13% on 9-Mar)
+BCOM_PX_LAST,2022-07-05,4,111.8706,117.1284,-4.592792273997501,-5.045254237933742,False,Recession-fear commodity sell-off (5-Jul-2022)
+BRENT_PX_LAST,2019-09-16,3,69.02,60.22,13.63917946162696,6.260467538100274,False,Abqaiq/Khurais attack on Saudi facilities (14-Sep-2019)
+BRENT_PX_LAST,2020-03-09,3,34.36,45.27,-27.575146433181263,-12.657162374685857,False,"COVID-19 crash / USD funding squeeze; OPEC+ collapse 6-Mar, price war 9-Mar"
+BRENT_PX_LAST,2020-03-16,3,30.05,33.85,-11.907633837706738,-5.465677411627443,False,"COVID-19 crash / USD funding squeeze; OPEC+ collapse 6-Mar, price war 9-Mar"
+BRENT_PX_LAST,2020-03-18,1,24.88,28.73,-14.387760512021957,-6.6040708596065265,False,"COVID-19 crash / USD funding squeeze; OPEC+ collapse 6-Mar, price war 9-Mar"
+BRENT_PX_LAST,2020-03-19,1,28.47,24.88,13.478663341896752,6.186789648624589,False,"COVID-19 crash / USD funding squeeze; OPEC+ collapse 6-Mar, price war 9-Mar"
+BRENT_PX_LAST,2020-04-02,1,29.94,24.74,19.077401202714054,8.756644875663198,False,Trump signals Saudi-Russia output cut (2-Apr-2020)
+BRENT_PX_LAST,2020-04-03,1,34.11,29.94,13.039521743907196,5.985220945274222,False,Trump signals Saudi-Russia output cut (2-Apr-2020)
+BRENT_PX_LAST,2020-04-21,1,19.33,25.57,-27.976149608285578,-12.841225306585738,False,Oil storage crisis: CLK20 settles -$37.63 (20-Apr); extreme front-month volatility
+BRENT_PX_LAST,2020-04-30,1,25.27,22.54,11.432641278847267,5.247652896007191,False,Oil storage crisis: CLK20 settles -$37.63 (20-Apr); extreme front-month volatility
+BRENT_PX_LAST,2020-05-05,1,30.97,27.2,12.980202068315986,5.957992848125546,False,Oil storage crisis: CLK20 settles -$37.63 (20-Apr); extreme front-month volatility
+BRENT_PX_LAST,2021-11-26,1,72.72,82.22,-12.2782131600509,-5.635775607369643,False,Omicron variant announced
+BRENT_PX_LAST,2022-03-09,1,111.14,127.98,-14.1083333859539,-6.475812084440806,False,Russia-Ukraine commodity spike and reversal (Brent -13% on 9-Mar)
+COPPER_PX_LAST,2010-05-17,3,6470.0,6926.0,-6.810633746742098,-5.127258629836622,False,May-2010 euro-area sovereign stress (German naked-short ban 18/19-May; rebound 27-May)
+COPPER_PX_LAST,2011-09-22,1,7674.0,8300.0,-7.841752297779155,-5.9035170054567105,False,Risk-off after FOMC 'Operation Twist' (21-Sep-2011) and weak China PMI
+COPPER_PX_LAST,2011-10-20,1,6735.0,7210.0,-6.8151141434530365,-5.130631612962053,False,UNEXPLAINED - verify on terminal
+COPPER_PX_LAST,2020-03-18,1,4745.0,5144.0,-8.073955487342714,-6.078326847218479,False,"COVID-19 crash / USD funding squeeze; OPEC+ collapse 6-Mar, price war 9-Mar"
+COPPER_PX_LAST,2022-11-04,1,8099.0,7561.0,6.873714069072003,5.174747474350334,False,China reopening speculation (4-Nov-2022)
+DXY_PX_LAST,2011-09-22,1,92.075,90.3453,1.8964466568498275,5.94628465040184,False,Risk-off after FOMC 'Operation Twist' (21-Sep-2011) and weak China PMI
+DXY_PX_LAST,2011-11-01,1,90.7296,89.2053,1.6943199625509682,5.312518941567064,False,Greek referendum call (31-Oct-2011)
+DXY_PX_LAST,2013-06-20,1,94.125,92.4755,1.7679941549436287,5.543523445581394,False,Taper tantrum: Bernanke press conference (19-Jun-2013)
+DXY_PX_LAST,2016-03-17,1,110.445,112.7759,-2.0885004265956106,-6.548466830937378,False,Dovish FOMC (16-Mar-2016)
+DXY_PX_LAST,2016-06-24,1,112.1355,110.262,1.6848609538103034,5.282860338579485,False,Brexit referendum result
+DXY_PX_LAST,2016-12-15,1,118.8072,116.7332,1.7611022174142548,5.521913862103566,False,FOMC hike and hawkish dots (14-Dec-2016)
+DXY_PX_LAST,2020-03-12,1,120.4945,118.2564,1.874896020647168,5.878712901523267,False,"COVID-19 crash / USD funding squeeze; OPEC+ collapse 6-Mar, price war 9-Mar"
+DXY_PX_LAST,2020-03-26,1,122.4384,124.7995,-1.910040315017468,-5.988907394686839,False,"COVID-19 crash / USD funding squeeze; OPEC+ collapse 6-Mar, price war 9-Mar"
+HG1_PX_LAST,2011-09-22,1,348.05,375.35,-7.551277640433594,-5.0345755406782144,False,Risk-off after FOMC 'Operation Twist' (21-Sep-2011) and weak China PMI
+HG1_PX_LAST,2025-04-04,1,440.2,482.85,-9.247687732056558,-6.165603316496329,False,US 'Liberation Day' tariffs (2-Apr-2025) and China retaliation (4-Apr)
+HG1_PX_LAST,2025-07-08,1,564.5,498.45,12.443710012100375,8.296450090347342,False,US announces 50% copper tariff (8-Jul-2025) - COMEX only
+HG1_PX_LAST,2025-07-31,1,435.45,558.6,-24.905367437232783,-16.60486605070663,False,"US exempts refined copper from tariff - COMEX -22%, absent from LME"
+IRON_PX_LAST,2015-04-01,1,47.58,56.94,-17.958557697507988,-14.015087752254203,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2015-10-01,1,52.7,56.35,-6.69667849384686,-5.226173411070809,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2015-11-02,3,47.43,52.74,-10.611924103565034,-8.281681081346724,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2015-12-01,1,39.63,46.1,-15.122654280025921,-11.801912511658795,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2016-03-07,3,60.37,52.0,14.924857422690735,11.647549318390919,False,China steel/iron-ore futures surge after NPC growth target (7-Mar-2016)
+IRON_PX_LAST,2016-06-01,1,47.18,54.49,-14.404712461547806,-11.241621548627839,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2016-11-01,1,63.52,58.0,9.091180639246108,7.094873462377726,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2016-11-11,1,77.12,71.43,7.664470113540903,5.981450349473852,False,UNEXPLAINED - verify on terminal
+IRON_PX_LAST,2017-01-03,4,74.28,79.75,-7.10550051804489,-5.545223339283287,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2017-04-03,3,78.46,86.84,-10.147840422868471,-7.9195042507288615,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2017-05-04,1,62.83,67.47,-7.125038822447842,-5.560471281537337,False,UNEXPLAINED - verify on terminal
+IRON_PX_LAST,2017-06-01,1,55.26,60.71,-9.405910964707227,-7.340493027374595,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2017-07-03,3,64.76,56.01,14.51578825876935,11.328306519182437,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2017-08-01,1,72.15,66.22,8.57647531007797,6.693190850870159,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2017-10-02,3,62.9,69.77,-10.365795424475028,-8.089599117199262,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2017-12-01,1,68.95,63.36,8.454885673314045,6.598300745678271,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2018-03-30,1,64.86,69.7,-7.19692168873063,-5.616569588305961,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2018-12-03,3,65.52,72.28,-9.819202617921386,-7.663031111147015,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2019-02-01,1,86.9,76.03,13.36300330310011,10.428658419077783,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2019-07-01,3,119.18,109.18,8.76370589652213,6.839307991406731,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2020-02-03,3,78.62,92.44,-16.19336654124656,-12.637510032973335,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2020-04-01,1,80.58,88.02,-8.831358161974416,-6.892104683263792,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2020-06-01,3,99.69,92.54,7.442438755575906,5.8081742424475395,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2021-02-01,3,154.64,168.13,-8.363765479076143,-6.5271893825188645,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2021-05-10,3,220.72,206.28,6.766046072627238,5.280308755353123,False,UNEXPLAINED - verify on terminal
+IRON_PX_LAST,2021-08-02,3,181.26,211.99,-15.660663912152565,-12.22178209878378,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2021-09-01,1,142.99,159.25,-10.770059670751674,-8.405092097320505,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2021-09-06,3,134.19,145.07,-7.79596784379443,-6.0840728573482545,False,UNEXPLAINED - verify on terminal
+IRON_PX_LAST,2021-10-11,3,131.71,123.08,6.776798555711418,5.288700130457835,False,UNEXPLAINED - verify on terminal
+IRON_PX_LAST,2021-11-01,3,102.1,121.23,-17.173684258787222,-13.402562498090198,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2021-12-01,1,103.23,94.97,8.339845622263768,6.508522020813458,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2022-01-03,3,122.69,112.5,8.670762715861672,6.766773946364201,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2022-07-01,1,115.23,130.0,-12.060431942965923,-9.412115096203532,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2022-08-01,3,114.86,107.22,6.883119703675869,5.371674512016827,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2022-09-01,1,96.39,104.76,-8.326955784363442,-6.498462626716878,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2022-11-01,1,79.79,92.43,-14.705341795649662,-11.476236519902727,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2022-12-01,1,102.94,93.25,9.886223570068344,7.715335118038927,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2023-05-01,3,104.3,116.14,-10.752499793717703,-8.391388145049103,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2024-03-01,1,114.66,124.86,-8.522188215336147,-6.650824508904559,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2024-03-29,1,100.1,109.53,-9.002879801448039,-7.025962360986258,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2024-06-03,3,109.98,117.52,-6.6310000785953145,-5.17491713711585,True,roll day (contract switch) - excluded downstream
+IRON_PX_LAST,2024-10-01,1,108.24,93.83,14.286634956057418,11.149472355530628,True,roll day (contract switch) - excluded downstream
+USDCAD_PX_LAST,2010-05-20,1,1.0702,1.0438,-2.497764666789145,-5.228309941931103,False,May-2010 euro-area sovereign stress (German naked-short ban 18/19-May; rebound 27-May)
+USDCLP_PX_LAST,2011-01-04,1,487.78,465.95,-4.578615229961148,-5.985243652069979,False,BCCh announces USD 12bn reserve-purchase programme (3-Jan-2011)
+USDCLP_PX_LAST,2011-09-22,1,521.0,500.72,-3.970297913692084,-5.190040916575092,False,Risk-off after FOMC 'Operation Twist' (21-Sep-2011) and weak China PMI
+USDCLP_PX_LAST,2011-11-30,15,525.0,501.0,-4.679216150675888,-6.116750885558434,False,UNEXPLAINED - verify on terminal
+USDCLP_PX_LAST,2022-07-14,1,1048.5,1008.0,-3.9392401710660683,-5.149441707520881,False,BCCh announces USD 25bn FX intervention (evening 14-Jul-2022)
+USDCLP_PX_LAST,2022-07-15,1,974.01,1048.5,7.369427981169248,9.633441516345632,False,BCCh announces USD 25bn FX intervention (evening 14-Jul-2022)
+USDNOK_PX_LAST,2013-06-20,1,5.9981,5.7731,-3.823355446685725,-5.170398999191671,False,Taper tantrum: Bernanke press conference (19-Jun-2013)
+USDNOK_PX_LAST,2020-03-12,1,10.1668,9.692,-4.782670665907762,-6.467699895888202,False,"COVID-19 crash / USD funding squeeze; OPEC+ collapse 6-Mar, price war 9-Mar"
+USDNOK_PX_LAST,2020-03-18,1,11.2897,10.4996,-7.255364442100657,-9.811572471695332,False,"COVID-19 crash / USD funding squeeze; OPEC+ collapse 6-Mar, price war 9-Mar"
+USDNOK_PX_LAST,2020-03-20,1,11.7051,11.2472,-3.9905435480358844,-5.396490766999174,False,"COVID-19 crash / USD funding squeeze; OPEC+ collapse 6-Mar, price war 9-Mar"
+USDNOK_PX_LAST,2020-03-24,1,11.1202,11.5817,4.0662991933789785,5.498936620733382,False,"COVID-19 crash / USD funding squeeze; OPEC+ collapse 6-Mar, price war 9-Mar"
+USDNOK_PX_LAST,2025-04-04,1,10.7624,10.3245,-4.153886666480447,-5.617382888568124,False,US 'Liberation Day' tariffs (2-Apr-2025) and China retaliation (4-Apr)
+WTI_PX_LAST,2019-09-16,3,62.9,54.85,13.694397698515553,5.457576658580719,False,Abqaiq/Khurais attack on Saudi facilities (14-Sep-2019)
+WTI_PX_LAST,2020-03-09,3,31.13,41.28,-28.220613671979056,-11.24665471660078,False,"COVID-19 crash / USD funding squeeze; OPEC+ collapse 6-Mar, price war 9-Mar"
+WTI_PX_LAST,2020-03-18,1,20.37,26.95,-27.99200671162917,-11.155548847013696,False,"COVID-19 crash / USD funding squeeze; OPEC+ collapse 6-Mar, price war 9-Mar"
+WTI_PX_LAST,2020-03-19,1,25.22,20.37,21.35741002980589,8.51148805756103,False,"COVID-19 crash / USD funding squeeze; OPEC+ collapse 6-Mar, price war 9-Mar"
+WTI_PX_LAST,2020-04-02,1,25.32,20.31,22.048122168368227,8.78675496072865,False,Trump signals Saudi-Russia output cut (2-Apr-2020)
+WTI_PX_LAST,2020-04-22,1,13.78,10.01,31.96336722583833,12.73824017249685,True,roll day (contract switch) - excluded downstream
+WTI_PX_LAST,2020-04-23,1,16.5,13.78,18.01421153210224,7.179135771045545,False,Oil storage crisis: CLK20 settles -$37.63 (20-Apr); extreme front-month volatility
+WTI_PX_LAST,2020-04-27,3,12.78,16.94,-28.179624027451972,-11.230319268183155,False,Oil storage crisis: CLK20 settles -$37.63 (20-Apr); extreme front-month volatility
+WTI_PX_LAST,2020-04-29,1,15.06,12.34,19.919620389450582,7.938491175631502,False,Oil storage crisis: CLK20 settles -$37.63 (20-Apr); extreme front-month volatility
+WTI_PX_LAST,2020-04-30,1,18.84,15.06,22.394004677646947,8.924598212458918,False,Oil storage crisis: CLK20 settles -$37.63 (20-Apr); extreme front-month volatility
+WTI_PX_LAST,2020-05-05,1,24.56,20.39,18.60745186925778,7.415557604868846,False,Oil storage crisis: CLK20 settles -$37.63 (20-Apr); extreme front-month volatility
+WTI_PX_LAST,2021-11-26,2,68.15,78.39,-13.998521005808906,-5.5787777730623365,False,Omicron variant announced
+WTI_PX_LAST,2022-03-09,1,108.7,123.7,-12.92674852712784,-5.151648329932972,False,Russia-Ukraine commodity spike and reversal (Brent -13% on 9-Mar)

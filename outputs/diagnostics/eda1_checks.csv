@@ -1,0 +1,118 @@
+section,check,result,detail
+1,AUDUSD_PX_LAST: no duplicate dates,PASS,
+1,"AUDUSD_PX_LAST: index is datetime64, sorted, no time component",PASS,
+1,USDCAD_PX_LAST: no duplicate dates,PASS,
+1,"USDCAD_PX_LAST: index is datetime64, sorted, no time component",PASS,
+1,USDNOK_PX_LAST: no duplicate dates,PASS,
+1,"USDNOK_PX_LAST: index is datetime64, sorted, no time component",PASS,
+1,USDCLP_PX_LAST: no duplicate dates,PASS,
+1,"USDCLP_PX_LAST: index is datetime64, sorted, no time component",PASS,
+1,WTI_PX_LAST: no duplicate dates,PASS,
+1,"WTI_PX_LAST: index is datetime64, sorted, no time component",PASS,
+1,WTI_FUT_CUR_GEN_TICKER: no duplicate dates,PASS,
+1,"WTI_FUT_CUR_GEN_TICKER: index is datetime64, sorted, no time component",PASS,
+1,BRENT_PX_LAST: no duplicate dates,PASS,
+1,"BRENT_PX_LAST: index is datetime64, sorted, no time component",PASS,
+1,BRENT_FUT_CUR_GEN_TICKER: no duplicate dates,PASS,
+1,"BRENT_FUT_CUR_GEN_TICKER: index is datetime64, sorted, no time component",PASS,
+1,IRON_PX_LAST: no duplicate dates,PASS,
+1,"IRON_PX_LAST: index is datetime64, sorted, no time component",PASS,
+1,IRON_FUT_CUR_GEN_TICKER: no duplicate dates,PASS,
+1,"IRON_FUT_CUR_GEN_TICKER: index is datetime64, sorted, no time component",PASS,
+1,COPPER_PX_LAST: no duplicate dates,PASS,
+1,"COPPER_PX_LAST: index is datetime64, sorted, no time component",PASS,
+1,HG1_PX_LAST: no duplicate dates,PASS,
+1,"HG1_PX_LAST: index is datetime64, sorted, no time component",PASS,
+1,BCOM_PX_LAST: no duplicate dates,PASS,
+1,"BCOM_PX_LAST: index is datetime64, sorted, no time component",PASS,
+1,DXY_PX_LAST: no duplicate dates,PASS,
+1,"DXY_PX_LAST: index is datetime64, sorted, no time component",PASS,
+1,"AUDUSD_PX_LAST: rows within 150 of ~4,100",PASS,"4101 rows, 2010-01-01 -> 2025-09-19"
+1,"USDCAD_PX_LAST: rows within 150 of ~4,100",PASS,"4101 rows, 2010-01-01 -> 2025-09-19"
+1,"USDNOK_PX_LAST: rows within 150 of ~4,100",PASS,"4173 rows, 2010-01-01 -> 2025-12-31"
+1,"USDCLP_PX_LAST: rows within 150 of ~4,100",FAIL,"3898 rows, 2010-01-04 -> 2025-12-31"
+1,"WTI_PX_LAST: rows within 150 of ~4,100",PASS,"3964 rows, 2010-01-04 -> 2025-09-26"
+1,"BRENT_PX_LAST: rows within 150 of ~4,100",PASS,"4131 rows, 2010-01-04 -> 2025-12-31"
+1,"IRON_PX_LAST: rows within 150 of ~4,100",FAIL,"3312 rows, 2013-04-08 -> 2025-12-31"
+1,"COPPER_PX_LAST: rows within 150 of ~4,100",PASS,"4042 rows, 2010-01-04 -> 2025-12-31"
+1,"HG1_PX_LAST: rows within 150 of ~4,100",PASS,"3977 rows, 2010-01-04 -> 2025-10-01"
+1,"BCOM_PX_LAST: rows within 150 of ~4,100",PASS,"3959 rows, 2010-01-04 -> 2025-09-23"
+1,"DXY_PX_LAST: rows within 150 of ~4,100",PASS,"4141 rows, 2010-01-01 -> 2025-11-14"
+1b,AUDUSD_PX_LAST: raw dates all YYYY-MM-DD and strict parse == loaded index,PASS,0 non-ISO strings; order descending
+1b,USDCAD_PX_LAST: raw dates all YYYY-MM-DD and strict parse == loaded index,PASS,0 non-ISO strings; order descending
+1b,WTI_PX_LAST: raw dates all YYYY-MM-DD and strict parse == loaded index,PASS,0 non-ISO strings; order descending
+1b,BCOM_PX_LAST: raw dates all YYYY-MM-DD and strict parse == loaded index,PASS,0 non-ISO strings; order descending
+1b,DXY_PX_LAST: raw dates all YYYY-MM-DD and strict parse == loaded index,PASS,0 non-ISO strings; order ascending
+1b,BBG.xlsx[wti]: native Excel datetimes,PASS,datetime64[us]
+1b,BBG.xlsx[nok]: native Excel datetimes,PASS,datetime64[us]
+1b,BBG.xlsx[clp]: native Excel datetimes,PASS,datetime64[us]
+1b,BBG.xlsx[brent]: native Excel datetimes,PASS,datetime64[us]
+1b,BBG.xlsx[iron]: native Excel datetimes,PASS,datetime64[us]
+1b,BBG.xlsx[copper]: native Excel datetimes,PASS,datetime64[us]
+1b,Copper_Price_Daily.xlsx: native Excel datetimes,PASS,datetime64[us]
+2,AUDUSD_PX_LAST: daily std below 5%,PASS,0.67%
+2,AUDUSD_PX_LAST: daily std in expected fx band 0.4-0.8%,PASS,0.67%
+2,USDCAD_PX_LAST: daily std below 5%,PASS,0.48%
+2,USDCAD_PX_LAST: daily std in expected fx band 0.4-0.8%,PASS,0.48%
+2,USDNOK_PX_LAST: daily std below 5%,PASS,0.74%
+2,USDNOK_PX_LAST: daily std in expected fx band 0.4-0.8%,PASS,0.74%
+2,USDCLP_PX_LAST: daily std below 5%,PASS,0.76%
+2,USDCLP_PX_LAST: daily std in expected fx band 0.4-0.8%,PASS,0.76%
+2,WTI_PX_LAST (ex-roll): daily std below 5%,PASS,2.51%
+2,WTI_PX_LAST (ex-roll): daily std in expected commodity band 1.5-2.5%,FAIL,2.51%
+2,BRENT_PX_LAST (ex-roll): daily std below 5%,PASS,2.18%
+2,BRENT_PX_LAST (ex-roll): daily std in expected commodity band 1.5-2.5%,PASS,2.18%
+2,IRON_PX_LAST (ex-roll): daily std below 5%,PASS,1.28%
+2,IRON_PX_LAST (ex-roll): daily std in expected commodity band 1.5-2.5%,FAIL,1.28%
+2,COPPER_PX_LAST: daily std below 5%,PASS,1.33%
+2,COPPER_PX_LAST: daily std in expected commodity band 1.5-2.5%,FAIL,1.33%
+2,HG1_PX_LAST: daily std below 5%,PASS,1.50%
+2,HG1_PX_LAST: daily std in expected commodity band 1.5-2.5%,FAIL,1.50%
+2,BCOM_PX_LAST: daily std below 5%,PASS,0.91%
+2,DXY_PX_LAST: daily std below 5%,PASS,0.32%
+2,AUDUSD_PX_LAST: FX skew near zero (|skew| < 0.5),PASS,skew -0.21
+2,USDCAD_PX_LAST: FX skew near zero (|skew| < 0.5),PASS,skew -0.09
+2,USDNOK_PX_LAST: FX skew near zero (|skew| < 0.5),FAIL,skew -0.50
+2,USDCLP_PX_LAST: FX skew near zero (|skew| < 0.5),PASS,skew -0.03
+3a,AUDUSD_PX_LAST: longest identical run < 5 sessions,PASS,2 x 0.903 (2013-08-23 -> 2013-08-26)
+3a,USDCAD_PX_LAST: longest identical run < 5 sessions,PASS,3 x 1.3282 (2019-11-27 -> 2019-11-29)
+3a,USDNOK_PX_LAST: longest identical run < 5 sessions,PASS,2 x 7.452 (2014-12-31 -> 2015-01-01)
+3a,USDCLP_PX_LAST: longest identical run < 5 sessions,PASS,3 x 592.25 (2014-09-10 -> 2014-09-12)
+3a,WTI_PX_LAST: longest identical run < 5 sessions,PASS,2 x 87.81 (2010-11-10 -> 2010-11-11)
+3a,BRENT_PX_LAST: longest identical run < 5 sessions,PASS,2 x 63.45 (2015-04-17 -> 2015-04-20)
+3a,IRON_PX_LAST: longest identical run < 5 sessions,PASS,4 x 134.25 (2013-09-24 -> 2013-09-27)
+3a,COPPER_PX_LAST: longest identical run < 5 sessions,PASS,3 x 8050.0 (2012-04-17 -> 2012-04-19)
+3a,HG1_PX_LAST: longest identical run < 5 sessions,PASS,3 x 371.8 (2012-10-08 -> 2012-10-10)
+3a,BCOM_PX_LAST: longest identical run < 5 sessions,PASS,1 x 142.3014 (2010-01-04 -> 2010-01-04)
+3a,DXY_PX_LAST: longest identical run < 5 sessions,PASS,1 x 92.3566 (2010-01-04 -> 2010-01-04)
+3c,every non-roll >5sigma move matched to a known event,FAIL,COPPER_PX_LAST 2011-10-20; IRON_PX_LAST 2016-11-11; IRON_PX_LAST 2017-05-04; IRON_PX_LAST 2021-05-10; IRON_PX_LAST 2021-09-06; IRON_PX_LAST 2021-10-11; USDCLP_PX_LAST 2011-11-30
+3d,non-positive prices limited to WTI 2020-04-20,PASS,1 found
+4a,WTI_PX_LAST: ~12 rolls/year,PASS,"189 rolls, 12.0/yr"
+4a,WTI_PX_LAST: every roll steps forward one contract month,PASS,{}
+4a,BRENT_PX_LAST: ~12 rolls/year,PASS,"193 rolls, 11.8/yr"
+4a,BRENT_PX_LAST: every roll steps forward one contract month,PASS,{}
+4a,IRON_PX_LAST: ~12 rolls/year,PASS,"152 rolls, 11.6/yr"
+4a,IRON_PX_LAST: every roll steps forward one contract month,PASS,{}
+4b,WTI_PX_LAST: roll-day mean |r| exceeds non-roll (perm p < 0.05),PASS,"1.96% vs 1.67%, p=0.0222"
+4b,WTI_PX_LAST: event-study peak at offset 0 (ticker aligned with price),PASS,"t-2=1.65, t-1=1.48, t+0=1.96, t+1=1.64, t+2=1.45"
+4b,BRENT_PX_LAST: roll-day mean |r| exceeds non-roll (perm p < 0.05),PASS,"2.12% vs 1.47%, p=0.0000"
+4b,BRENT_PX_LAST: event-study peak at offset 0 (ticker aligned with price),PASS,"t-2=1.41, t-1=1.14, t+0=2.12, t+1=1.43, t+2=1.74"
+4b,IRON_PX_LAST: roll-day mean |r| exceeds non-roll (perm p < 0.05),PASS,"5.01% vs 0.82%, p=0.0000"
+4b,IRON_PX_LAST: event-study peak at offset 0 (ticker aligned with price),PASS,"t-2=0.16, t-1=0.14, t+0=5.01, t+1=1.37, t+2=1.22"
+4b,WTI_PX_LAST: no average-price decay through contract month (late/early > 0.5),PASS,late 1.56% vs early 1.62%
+4b,BRENT_PX_LAST: no average-price decay through contract month (late/early > 0.5),PASS,late 1.38% vs early 1.55%
+4b,IRON_PX_LAST: no average-price decay through contract month (late/early > 0.5),FAIL,late 0.25% vs early 1.34%
+5,AUD: no final-sample return spans more than 5 calendar days,FAIL,1 returns; longest 6 days ending 2016-01-27
+5,CAD: no final-sample return spans more than 5 calendar days,FAIL,2 returns; longest 7 days ending 2010-02-12
+5,CLP: no final-sample return spans more than 5 calendar days,FAIL,28 returns; longest 25 days ending 2012-03-05
+5,NOK: no final-sample return spans more than 5 calendar days,FAIL,1 returns; longest 6 days ending 2016-01-27
+4c,AUD: no own-calendar roll date in final sample,PASS,0 leaked
+4c,AUD: no final-sample return spans two contracts,PASS,0 spanning
+4c,CAD: no own-calendar roll date in final sample,PASS,0 leaked
+4c,CAD: no final-sample return spans two contracts,PASS,0 spanning
+4c,NOK: no own-calendar roll date in final sample,PASS,0 leaked
+4c,NOK: no final-sample return spans two contracts,PASS,0 spanning
+4c,AUD: sign-adjusted FX return correlates negatively with dollar index,PASS,corr -0.633
+4c,CAD: sign-adjusted FX return correlates negatively with dollar index,PASS,corr -0.611
+4c,CLP: sign-adjusted FX return correlates negatively with dollar index,PASS,corr -0.520
+4c,NOK: sign-adjusted FX return correlates negatively with dollar index,PASS,corr -0.653

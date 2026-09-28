@@ -1,0 +1,29 @@
+pair,stage,n_remaining,n_dropped,cause
+AUD,0 union of dates,4174,,any required series has a row
+AUD,1 inner join: all required series valid,3059,1115.0,IRON_FUT_CUR_GEN_TICKER uncovered 851; IRON_PX_LAST uncovered 851; DXY_PX_LAST src_na 190 (12.0/yr); BCOM_PX_LAST no_row 143 (9.1/yr)
+AUD,2 first joined date (no previous price),3058,1.0,2013-04-08
+AUD,3 non-positive price (log return undefined),3058,0.0,
+AUD,4 roll exclusion,2909,149.0,ticker changed vs previous joined date (IRON_FUT_CUR_GEN_TICKER)
+AUD,5 FINAL N contemporaneous,2909,,2013-04-09 -> 2025-09-19
+AUD,6 FINAL N predictive (ds_t+1 available),2908,1.0,last joined date has no lead
+CAD,0 union of dates,4172,,any required series has a row
+CAD,1 inner join: all required series valid,3897,275.0,DXY_PX_LAST src_na 190 (12.0/yr); BCOM_PX_LAST no_row 143 (9.1/yr); WTI_FUT_CUR_GEN_TICKER no_row 141 (8.8/yr); WTI_PX_LAST no_row 141 (9.0/yr)
+CAD,2 first joined date (no previous price),3896,1.0,2010-01-04
+CAD,3 non-positive price (log return undefined),3894,2.0,"2020-04-20, 2020-04-21 - treatment pending in design_decisions.md"
+CAD,4 roll exclusion,3706,188.0,ticker changed vs previous joined date (WTI_FUT_CUR_GEN_TICKER)
+CAD,5 FINAL N contemporaneous,3706,,2010-01-05 -> 2025-09-19
+CAD,6 FINAL N predictive (ds_t+1 available),3705,1.0,last joined date has no lead
+CLP,0 union of dates,4173,,any required series has a row
+CLP,1 inner join: all required series valid,3599,574.0,USDCLP_PX_LAST no_row 274 (17.1/yr); DXY_PX_LAST src_na 190 (12.0/yr); BCOM_PX_LAST no_row 143 (9.1/yr); HG1_PX_LAST no_row 131 (8.3/yr)
+CLP,2 first joined date (no previous price),3598,1.0,2010-01-04
+CLP,3 non-positive price (log return undefined),3598,0.0,
+CLP,4 roll exclusion,3598,0.0,COPPER_PX_LAST has no roll; HG1_PX_LAST rolls undetectable (accepted)
+CLP,5 FINAL N contemporaneous,3598,,2010-01-05 -> 2025-09-23
+CLP,6 FINAL N predictive (ds_t+1 available),3597,1.0,last joined date has no lead
+NOK,0 union of dates,4174,,any required series has a row
+NOK,1 inner join: all required series valid,3898,276.0,DXY_PX_LAST src_na 190 (12.0/yr); BCOM_PX_LAST no_row 143 (9.1/yr); BCOM_PX_LAST uncovered 72; BRENT_PX_LAST no_row 42 (2.6/yr)
+NOK,2 first joined date (no previous price),3897,1.0,2010-01-04
+NOK,3 non-positive price (log return undefined),3897,0.0,
+NOK,4 roll exclusion,3708,189.0,ticker changed vs previous joined date (BRENT_FUT_CUR_GEN_TICKER)
+NOK,5 FINAL N contemporaneous,3708,,2010-01-05 -> 2025-09-23
+NOK,6 FINAL N predictive (ds_t+1 available),3707,1.0,last joined date has no lead

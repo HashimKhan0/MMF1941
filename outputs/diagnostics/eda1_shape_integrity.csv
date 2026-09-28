@@ -1,0 +1,15 @@
+series,frame,dtype,rows,first_date,last_date,missing_src_na,no_row,uncovered,weekdays_in_own_window,rows_vs_weekdays,weekend_rows,dup_dates,monotonic_increasing,index_dtype,has_time_component,red_flag
+AUDUSD_PX_LAST,curncy,float64,4101,2010-01-01,2025-09-19,0,0,73,4101,1.0,0,0,True,datetime64[us],False,
+USDCAD_PX_LAST,curncy,float64,4101,2010-01-01,2025-09-19,0,0,73,4101,1.0,0,0,True,datetime64[us],False,
+USDNOK_PX_LAST,curncy,float64,4173,2010-01-01,2025-12-31,0,1,0,4174,0.9997604216578821,0,0,True,datetime64[us],False,
+USDCLP_PX_LAST,curncy,float64,3898,2010-01-04,2025-12-31,0,275,1,4173,0.9341001677450276,0,0,True,datetime64[us],False,"rows far from ~4,100"
+WTI_PX_LAST,comm,float64,3964,2010-01-04,2025-09-26,0,127,68,4105,0.9656516443361753,0,0,True,datetime64[us],False,
+WTI_FUT_CUR_GEN_TICKER,comm,str,4030,2010-01-04,2025-12-31,0,129,0,4173,0.9657320872274143,0,0,True,datetime64[us],False,
+BRENT_PX_LAST,comm,float64,4131,2010-01-04,2025-12-31,0,28,0,4173,0.9899352983465133,0,0,True,datetime64[us],False,
+BRENT_FUT_CUR_GEN_TICKER,comm,str,4131,2010-01-04,2025-12-31,2,28,0,4173,0.9899352983465133,0,0,True,datetime64[us],False,
+IRON_PX_LAST,comm,float64,3312,2013-04-08,2025-12-31,43,2,845,3323,0.996689738188384,0,0,True,datetime64[us],False,"rows far from ~4,100"
+IRON_FUT_CUR_GEN_TICKER,comm,str,3312,2013-04-08,2025-12-31,0,2,845,3323,0.996689738188384,0,0,True,datetime64[us],False,"rows far from ~4,100"
+COPPER_PX_LAST,comm,float64,4042,2010-01-04,2025-12-31,0,117,0,4173,0.9686077162712676,0,0,True,datetime64[us],False,
+HG1_PX_LAST,comm,float64,3977,2010-01-04,2025-10-01,10,117,65,4108,0.9681110029211295,0,0,True,datetime64[us],False,
+BCOM_PX_LAST,bcom,float64,3959,2010-01-04,2025-09-23,0,0,0,4102,0.9651389566065334,0,0,True,datetime64[us],False,
+DXY_PX_LAST,dxy,float64,4141,2010-01-01,2025-11-14,190,0,0,4141,1.0,0,0,True,datetime64[us],False,
