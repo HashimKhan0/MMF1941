@@ -24,13 +24,13 @@ Does the *contemporaneous-strong / predictively-weak* commodity → currency pat
 A null on H2 is treated as a legitimate result, so the design is built to make it credible:
 
 - report a minimum detectable effect (power analysis);
-- move the predictive test out-of-sample (Diebold–Mariano vs. a random walk, Campbell–Thompson OOS R²);
-- adjust for multiple testing across 4 pairs × 2 directions (Holm / Bonferroni).
+- move the predictive test out-of-sample (expanding window vs. a random walk, Clark–West test — the model nests the random walk, so Diebold–Mariano does not apply — plus Campbell–Thompson OOS R²);
+- report unadjusted and Holm-adjusted p-values across 4 pairs × 2 directions.
 
 ## Methodology notes
 
 - **Controls:** DXY for the dollar; BCOM *orthogonalized* against each pair's own commodity (`BCOM⊥`), since WTI, Brent and copper are BCOM constituents.
-- **Robustness:** walk-forward random forest for the predictive direction, a pooled panel with pair fixed effects, and a CLP central-bank-intervention subsample.
+- **Robustness:** walk-forward random forest for the predictive direction, a pooled panel with pair fixed effects (standard errors two-way clustered by date and pair), and a CLP central-bank-intervention subsample.
 - **Futures rolls:** returns are computed only when the generic contract is unchanged between days (`FUT_CUR_GEN_TICKER`); roll days are marked missing rather than back-adjusted.
 - **Snap-time alignment:** FX fixing times vs. commodity settlement times are documented explicitly, since a mismatch can manufacture spurious predictability.
 
