@@ -1,0 +1,5 @@
+pair,series,inverted,corr_with_dollar,n,result
+AUD,AUDUSD,False,-0.5993,4091,PASS
+CAD,USDCAD,True,-0.5254,4091,PASS
+CLP,USDCLP,True,-0.3184,3828,PASS
+NOK,USDNOK,True,-0.6991,4096,PASS

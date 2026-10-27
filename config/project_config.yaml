@@ -1,0 +1,221 @@
+# MMF1941 Project 1 (A14-03) — single source of configuration
+# Commodity-Currency Transmission Beyond a Single Pair
+#
+# Every value used by more than one script lives here. Do not repeat these
+# numbers in notebooks or modules — import them.
+#
+# Anything under `frozen:` is locked by design_decisions.md and may not be
+# changed without a dated amendment there.
+
+project:
+  id: A14-03
+  name: Commodity-Currency Transmission Beyond a Single Pair
+  student: Khan, Hashim
+  frozen_on: "2026-10-26"   # specification frozen BEFORE any estimate existed
+
+paths:
+  raw: data/raw_bloomberg
+  interim: data/interim
+  analytic: data/analytic
+  manifests: manifests
+  outputs: outputs
+
+sample:
+  start: "2010-01-01"
+  end: "2025-12-31"        # requested window
+  # Realised ends differ by pair — set by the binding source, not by choice.
+  binding_end:
+    AUD: "2025-09-19"      # AT-04 FX file
+    CAD: "2025-09-19"      # AT-04 FX file
+    CLP: "2025-09-23"      # BCOM
+    NOK: "2025-09-23"      # BCOM
+  # Extending to 2025-12-31 requires exactly two re-pulls: AT-04 FX and BCOM.
+  # All Bloomberg-pulled series already reach year end.
+
+pairs:
+  AUD:
+    fx: AUDUSD_PX_LAST
+    invert: false          # already USD per AUD
+    commodity: IRON_PX_LAST
+    contract_field: IRON_FUT_CUR_GEN_TICKER
+    bcom_constituent: false
+    orthogonalize_against: null
+    start: "2013-04-08"    # SCO series does not exist earlier
+  CAD:
+    fx: USDCAD_PX_LAST
+    invert: true
+    commodity: WTI_PX_LAST
+    contract_field: WTI_FUT_CUR_GEN_TICKER
+    bcom_constituent: true
+    bcom_weight: 0.0885
+    orthogonalize_against: WTI_PX_LAST
+    start: "2010-01-04"
+  CLP:
+    fx: USDCLP_PX_LAST
+    invert: true
+    commodity: COPPER_PX_LAST        # LME 3M, LMCADS03
+    contract_field: null             # constant maturity, no roll
+    bcom_constituent: true
+    bcom_weight: 0.0592              # COMEX copper is what the index holds
+    orthogonalize_against: HG1_PX_LAST
+    start: "2010-01-04"
+  NOK:
+    fx: USDNOK_PX_LAST
+    invert: true
+    commodity: BRENT_PX_LAST
+    contract_field: BRENT_FUT_CUR_GEN_TICKER
+    bcom_constituent: true
+    bcom_weight: 0.1058
+    orthogonalize_against: BRENT_PX_LAST
+    start: "2010-01-04"
+
+controls:
+  dollar:
+    # DD-13 amended 2026-10-26. ICE DXY was in the RiskLab library under a
+    # different filename (catalog RL-36290DAB949B). Verified: 77.525 on
+    # 2010-01-04, 114.106 on 2022-09-27, 71.329 low 2008. Zero missing in window.
+    column: DXY_PX_LAST
+    source_file: EM-17_USD_Index_DXY_PX-LAST_Daily.csv
+    catalog_id: RL-36290DAB949B
+    is_ice_dxy: true
+  dollar_cad_excluded:
+    # O1. CAD is a 9.1% ICE DXY constituent, so for the CAD pair the control
+    # partly contains the dependent variable. Rebuild the index without CAD from
+    # the AT-04 components, renormalising the weights available.
+    # DXY = 50.14348112 * EURUSD^-0.576 * USDJPY^0.136 * GBPUSD^-0.119
+    #                   * USDCAD^0.091 * USDSEK^0.042 * USDCHF^0.036
+    column: DXY_EXCAD_PX_LAST
+    components_available: [EURUSD, USDJPY, GBPUSD, USDCHF]
+    weights_full: {EURUSD: -0.576, USDJPY: 0.136, GBPUSD: -0.119, USDCHF: 0.036}
+    weight_sum_available: 0.867
+    missing: {USDSEK: 0.042}
+    note: "Covers 86.7% of the non-CAD basket; SEK unavailable. Report as a documented approximation alongside the full-DXY result."
+    applies_to: [CAD]
+  dollar_robustness:
+    # Fed H.10 nominal broad dollar index, base Jan 2006 = 100. The file is
+    # MISNAMED USD_Index_DXY_Daily.csv but is not ICE DXY. 188 missing in window.
+    column: USD_BROAD_PX_LAST
+    source_file: USD_Index_DXY_Daily.csv
+    catalog_id: RL-B4C76E222224
+    is_ice_dxy: false
+  broad_commodity:
+    column: BCOM_PX_LAST
+    orthogonalize: true    # residual from regressing BCOM on own-pair commodity
+
+frozen:
+  sign_convention:
+    rule: USD per unit of the commodity currency
+    expected_beta_sign: positive
+    # automated check: after inversion every FX return series must correlate
+    # NEGATIVELY with the dollar-factor return. Positive => a missed inversion.
+    check: negative_correlation_with_dollar_factor
+
+  returns:
+    type: log
+    roll_rule: drop            # returns computed only where contract code unchanged
+    expected_rolls_per_year: 12
+
+  horizons:
+    contemporaneous: 0
+    predictive_primary: 1
+    predictive_secondary: 5
+    loss_function: squared_error     # declared per guide hint 8
+
+  iron_ore:
+    settlement: monthly_arithmetic_average
+    pass_through_weight: "(N - k + 1) / N"   # k = index days elapsed, N = month total
+    # Cutoff set from the empirical decay profile (commodity series only, no FX
+    # data involved). Observed response is flat over days 2-7 then decays.
+    baseline_rule: first_8_trading_days_of_contract_month   # w 1.00 -> 0.68
+    robustness_rules:
+      - first_5_trading_days_of_contract_month              # w 1.00 -> 0.82
+      - full_sample_rescaled_by_inverse_w
+
+  exclusions:
+    wti_negative_price_dates: ["2020-04-20", "2020-04-21"]
+    nok_drop_dates: ["2010-01-01"]            # New Year's Day; FX does not trade
+    brent_indeterminate_roll_dates: ["2010-08-30", "2023-01-02"]
+    clp_max_return_span_calendar_days: 5
+
+  inference:
+    per_pair: newey_west_hac
+    pooled: two_way_cluster      # by date and by pair
+    pooled_fixed_effects: pair
+    oos_test: clark_west         # NOT Diebold-Mariano — model nests the RW
+    # D6, frozen 2026-10-26: the date-shift criterion is a Wald test on the
+    # DIFFERENCE b0 - b_shift = 0, not a significance test on b_shift alone.
+    # A t-stat scales with sqrt(n), so at n~3700 "is the shift zero" tests power,
+    # not alignment; and mild serial correlation makes a small nonzero shift
+    # EXPECTED under perfect alignment. Alignment FAILS if the difference is not
+    # significantly positive, or if |b_shift| >= |b0| on either side.
+    date_shift_criterion: wald_on_difference
+    date_shift_alpha: 0.05
+    multiple_testing: holm
+    n_primary_tests: 8           # 4 pairs x 2 directions
+    power_target: 0.80           # for the minimum detectable effect
+    placebo_outcome: USDCHF_PX_LAST  # non-commodity G10 control (DD-22)
+    seed: 20261026                   # resampling / any fitted procedure
+
+# D6. The old sanity band (beta 0.10-0.25, R2 0.05-0.25) was REMOVED 2026-10-26:
+# it had no basis and risked anchoring. Two separate things replace it.
+bug_detector:
+  # A catastrophe gate, not an expectation. At daily frequency these would mean
+  # commodity moves explain most daily FX variation, which no one has found -
+  # so they indicate a sign or alignment bug and get SAID, not reported.
+  abs_beta_max: 0.50
+  r2_max: 0.40
+literature_prior:
+  # Context for the discussion, NOT a gate. Fill in from the papers; a gate you
+  # can fail quietly becomes a reason to adjust the spec.
+  status: TO BE READ
+  sources:
+    - "Chen, Rogoff & Rossi (2010) - commodity currencies and forecastability"
+    - "Ferraro, Rogoff & Rossi (2015) - oil and CAD, daily contemporaneous"
+  daily_contemporaneous_beta_range: null
+
+# DD-18: settlement times, for the timing-gap analysis.
+# `verified: exchange_spec` means sourced from the exchange's own published
+# methodology (cited). `expected` means the market convention, NOT confirmed -
+# Bloomberg DES was unavailable (API suspended 2026-10-24). Treat `expected`
+# rows as assumptions and say so in the paper.
+settlement_times:
+  BRENT_PX_LAST:
+    local_time: "19:30"
+    tz: Europe/London
+    window: "19:28:00-19:30:00, weighted average of trades"
+    verified: exchange_spec
+    source: "ICE Brent Crude Futures product specification (ice.com/products/219)"
+  COPPER_PX_LAST:
+    local_time: "17:50"
+    tz: Europe/London
+    window: "five-minute VWAP Pricing Window; Closing Prices published as close to 17:50 London as practicable"
+    verified: exchange_spec
+    source: "LME Benchmark Methodology - Closing Prices"
+  WTI_PX_LAST:
+    local_time: "14:30"
+    tz: America/New_York
+    window: "14:28:00-14:30:00 ET settlement period (market convention)"
+    verified: expected
+    source: "NOT SOURCED - CME spec page did not render the settlement window; verify on DES"
+  IRON_PX_LAST:
+    local_time: "18:30"
+    tz: Asia/Singapore
+    window: "SGX evening settlement against the IODEX publication"
+    verified: expected
+    source: "NOT SOURCED - verify on DES. Singapore observes no DST."
+  FX_SNAP:
+    local_time: "17:00"
+    tz: America/New_York
+    window: "Bloomberg composite end-of-day snap (market convention)"
+    verified: expected
+    source: "NOT SOURCED - DES unavailable. Applies to all four FX series."
+
+date_formats:
+  # CLAUDE.md: never infer a date format from a text file.
+  # .xlsx files carry native Excel datetimes and need no format string.
+  AT-04_Daily_Spot_Prices_G10_FX_Pairs_Daily_2000_2025.csv: "%Y-%m-%d"
+  Crude_Oil_WTI_Spot_Daily.csv: "%Y-%m-%d"
+  Commodity_Index_BCOM_Price_Daily.csv: "%Y-%m-%d"
+  USD_Index_DXY_Daily.csv: "%Y-%m-%d"
+
+na_values: ["#N/A", "#N/A N/A", "#N/A Invalid Security", "#N/A Field Not Applicable", "N/A", ""]

@@ -1,5 +1,38 @@
 # Project 1 — Working Notes
 
+> **STATUS BANNER — added 2026-10-26. Read before using this file.**
+>
+> These notes were written 2026-09-20, before the data was validated and before
+> the Bloomberg API was suspended. The **conceptual** material still stands and is
+> the best write-up of the reasoning: §1 scope, §2 hypotheses (including *making
+> the null credible*), §3 pair quirks, §6.1 sign convention, §6.2 snap times, §7
+> what the result looks like.
+>
+> The **operational** material is superseded. Do not act on it:
+>
+> | Section | Status |
+> |---|---|
+> | §4 Data status | Superseded by `PHASE_0_PROVENANCE.md` and `manifests/data_manifest.csv` |
+> | §5 Bloomberg extraction plan | **Dead.** Desktop API suspended 2026-10-24 pending workflow review. No pull is possible |
+> | §8 Source log columns | Superseded by `manifests/bloomberg_source_log.csv`, now 17 columns with hashes |
+> | §9 Next actions | Superseded by `CHECKPOINT.md` |
+>
+> Four specific claims in this file are now **wrong**:
+>
+> 1. **Every reference to "DXY"** — the file `USD_Index_DXY_Daily.csv` is the Fed
+>    H.10 broad dollar index, base Jan 2006 = 100, not ICE DXY. Column is
+>    `USD_BROAD_PX_LAST`. See DD-13.
+> 2. **Iron ore as the clean pair** — `SCO1` settles on the monthly arithmetic
+>    average of IODEX prints, so pass-through is (N−k+1)/N and β is inflated
+>    ~1.5×. AUD is the most caveated pair, not the least. See DD-12.
+> 3. **§5 "Roll adjustment — sidestep it"** — not sidestepped. Roll days are
+>    dropped via `FUT_CUR_GEN_TICKER`: CL 192, CO 193, SCO 152 rolls. See DD-05.
+> 4. **§6.2 snap times** — still the largest open item, but now blocked on
+>    *exchange published specifications*, not on Bloomberg `DES`. See DD-18.
+>
+> The authority for every decision is `design_decisions.md`.
+
+
 **Student:** Hashim Khan · **Proposal ID:** A14-03 · **Course:** MMF1941
 **Title:** Commodity-Currency Transmission Beyond a Single Pair: A Multi-Pair Replication
 **Last updated:** 2026-09-20

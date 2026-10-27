@@ -1,4 +1,14 @@
-raw_data
+# Raw provider data is immutable and not versioned here.
+# Provenance lives in manifests/bloomberg_source_log.csv (with SHA-256 hashes)
+# and manifests/data_manifest.csv.
+data/raw_bloomberg/
+
+# Derived data is rebuildable from raw + src/
+data/interim/
+data/analytic/
+
 .claude
-.pycache
+__pycache__/
+*.pyc
 .venv
+.ipynb_checkpoints/

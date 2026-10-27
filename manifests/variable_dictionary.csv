@@ -1,0 +1,16 @@
+variable,role,formula,units,timing,decision
+<CCY>_ds,outcome,"log(S_t / S_{t-1}), negated where the quote is local-per-USD","log return, USD per unit of commodity currency","FX snap, convention unverified (DD-18)",DD-01
+<CCY>_span_days,diagnostic,calendar days since the previous valid quote,days,n/a,DD-14
+<CCY>_long_span,flag,span_days > 5,bool,n/a,DD-14
+<CCY>_dropped,flag,date excluded as a non-trading observation,bool,n/a,DD-20
+<COMM>_lret,signal,"log(P_t / P_{t-1}), NA on roll and indeterminate days",log return,"exchange settlement, unverified (DD-18)",DD-05
+<COMM>_roll,flag,contract pointer changed vs previous date,bool,n/a,DD-05
+IRON_k,schedule,"trading day within the contract month, 1-based",count,n/a,DD-12
+IRON_N,schedule,trading days in that contract month,count,n/a,DD-12
+IRON_w,schedule,"(N - k + 1) / N, pass-through of an index move to the future",fraction,n/a,DD-12
+IRON_early_baseline,flag,"k <= 8, the frozen AUD baseline sample",bool,n/a,DD-12
+IRON_lret_rescaled,signal,"IRON_lret / IRON_w, attenuation removed",log return,as IRON_lret,DD-12
+BCOM_perp_<PAIR>,control,residual from regressing BCOM return on the pair's own commodity return,log return,index close,DD-03
+d_dollar,control,log return of ICE DXY,log return,unverified,DD-13
+d_dollar_broad,control,log return of the Fed H.10 broad dollar index; robustness only,log return,unverified,DD-13
+USDCHF_ds,placebo,convention-A return on a non-commodity G10 currency,log return,as other FX,DD-22

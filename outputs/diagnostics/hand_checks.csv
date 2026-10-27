@@ -1,0 +1,11 @@
+date,series,why_chosen,raw_price,prev_raw_price,hand_computed,pipeline_value,agrees
+2013-04-09,IRON_PX_LAST,first usable iron ore return (DD-15),138.17,138.08,0.0006515837334602041,0.0006515837334602,YES
+2020-04-20,WTI_PX_LAST,WTI settles -37.63; log return undefined (DD-16),-37.63,18.27,,,n/a (excluded by design)
+2020-04-21,WTI_PX_LAST,return out of the negative print (DD-16),10.01,-37.63,,,n/a (excluded by design)
+2010-08-30,BRENT_PX_LAST,Brent contract code null; roll indeterminate (DD-05),76.6,76.65,-0.0006525285712776833,,n/a (excluded by design)
+2023-01-02,BRENT_PX_LAST,second Brent null contract code (DD-05),85.91,85.91,0.0,,n/a (excluded by design)
+2011-11-30,USDCLP_PX_LAST,CLP return spans the 2012 coverage hole (DD-14),525.0,501.0,-0.046792161506758884,-0.0467921615067588,YES
+2010-01-01,USDNOK_PX_LAST,New Year's Day; FX does not trade (DD-20),5.7672,,,,n/a (excluded by design)
+2025-07-31,HG1_PX_LAST,COMEX -22% tariff dislocation absent from LME (DD-02),435.45,558.6,-0.24905367437232784,-0.2490536743723278,YES
+2015-06-15,COPPER_PX_LAST,"ordinary day, LME constant maturity, no roll",5815.0,5912.0,-0.01654339767527295,-0.0165433976752729,YES
+2018-03-14,AUDUSD_PX_LAST,"ordinary day, pulled series, no inversion",0.7877,0.786,0.002160514280072042,0.002160514280072,YES

@@ -1,0 +1,5 @@
+pair,beta_lag0,beta_shift_minus1,beta_shift_plus1,t_minus1,t_plus1,dd19_rule,verdict
+AUD,0.0166,0.0227,0.0081,2.51,0.9,|b0| >= 2*|b_shift| and |t_shift| < 1.96 both sides,REVIEW
+CAD,0.0613,0.0004,-0.0083,0.17,-3.18,|b0| >= 2*|b_shift| and |t_shift| < 1.96 both sides,REVIEW
+CLP,0.18,0.0196,0.0209,2.17,2.32,|b0| >= 2*|b_shift| and |t_shift| < 1.96 both sides,REVIEW
+NOK,0.0984,0.0032,0.0006,0.81,0.14,|b0| >= 2*|b_shift| and |t_shift| < 1.96 both sides,PASS

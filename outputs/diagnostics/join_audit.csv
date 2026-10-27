@@ -1,0 +1,5 @@
+pair,n,duplicate_dates,index_monotonic,any_all_nan_row,start,end
+AUD,1023,0,True,False,2013-04-09,2025-09-10
+CAD,3766,0,True,False,2010-01-05,2025-09-19
+CLP,3629,0,True,False,2010-01-05,2025-09-23
+NOK,3774,0,True,False,2010-01-05,2025-09-23

@@ -1,0 +1,5 @@
+pair,commodity,commodity_settle,fx_snap,verified,modal_gap_hours,min_gap_hours,max_gap_hours,n_days_off_mode,pct_days_off_mode,n
+AUD,IRON_PX_LAST,18:30 Asia/Singapore,17:00 America/New_York,expected,10.5,10.5,11.5,387,37.8,1023
+CAD,WTI_PX_LAST,14:30 America/New_York,17:00 America/New_York,expected,2.5,2.5,2.5,0,0.0,3766
+CLP,COPPER_PX_LAST,17:50 Europe/London,17:00 America/New_York,exchange_spec,4.17,3.17,4.17,249,6.9,3629
+NOK,BRENT_PX_LAST,19:30 Europe/London,17:00 America/New_York,exchange_spec,2.5,1.5,2.5,253,6.7,3774

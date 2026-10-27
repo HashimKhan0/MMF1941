@@ -54,12 +54,26 @@ and Platts refused on entitlement (`LHSI0006`, `PFAMCFRC`), `ISIX62IU` (Custeel)
 untested when the API was suspended, and WRDS carries only the Datastream
 Commodities *sample*, with the full product unsubscribed.
 
-**Decision.**
-- **Baseline:** restrict the AUD pair to the first 5 trading days of each contract
-  month, where *w* runs 1.00 → 0.81. Costs roughly three quarters of the AUD
-  sample; requires no correction and no auxiliary assumption.
-- **Robustness:** full sample with returns rescaled by $1/w_k$, trimmed or
-  weighted to control the month-end noise amplification.
+**Decision — cutoff revised 2026-10-26 from the empirical decay profile.**
+
+The observed response is flat across days 2–7 (1.2–1.4% mean |return|) and only
+then decays, where theory says *w* should already be 0.73 by day 7. The effective
+pricing window is shorter than *N*, or basis noise floors the early month. Either
+way the first week is one regime.
+
+- **Baseline:** first **8** trading days (*w* 1.00 → 0.68), 1,066 iron ore
+  observations pre-join (34.4%).
+- **Robustness 1:** first 5 days (*w* 1.00 → 0.82) — the conservative cutoff.
+- **Robustness 2:** full sample rescaled by $1/w_k$, trimmed or weighted against
+  month-end noise amplification.
+
+**Why not 5.** A 5-day cutoff leaves ~500–550 observations after the joins
+against 2,909 for the full sample. The minimum detectable effect widens enough
+that the predictive null risks being uninformative, and an under-powered null is
+an absent test rather than a finding.
+
+**Not specification shopping:** the cutoff came from the commodity series' own
+decay profile, which contains no FX data.
 - **Diagnostic, run before the freeze:** estimate β by day-of-contract-month
   bucket. If the mechanism is real, raw β̂ should **rise** through the month
   roughly as 1/w. Flat means the mechanism is not biting and the full sample is

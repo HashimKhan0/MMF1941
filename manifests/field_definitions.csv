@@ -1,0 +1,8 @@
+security_type,mnemonic,definition_source,definition,verified,note
+Curncy,PX_LAST,not verified,Last price for the FX pair,NO,FLDS unavailable - API suspended. Values confirmed economically plausible in validation.
+Curncy,CRNCY,not verified,Quote currency of the pair,NO,"Would have verified DD-01 mechanically: expect USD on AUDUSD, CAD on USDCAD."
+Comdty (futures),PX_LAST,inferred from data,Last / settlement price of the generic,PARTIAL,"Confirmed identical to PX_SETTLE for CL1 over Jan-2024 (n=22, max abs diff 0)."
+Comdty (futures),FUT_CUR_GEN_TICKER,inferred from data,Dated contract the generic currently points to,YES,"Returns codes of form <ROOT><MONTH><YEAR>. Verified on CL, CO, SCO. Absent for HG1."
+Comdty (futures),VOLUME / PX_VOLUME,not verified,Traded volume,NO,PX_VOLUME returned nothing on iron ore; VOLUME attempted; unresolved at suspension.
+Comdty (forward),PX_LAST,inferred from data,Price of the constant-maturity forward,PARTIAL,"LMCADS03 returns zero contract changes, consistent with constant 3-month maturity."
+Index,PX_LAST,not verified,Index level,NO,BCOM confirmed as price index not BCOMTR by level comparison; DXY file identified as Fed H.10 by base and level path.

@@ -1,0 +1,4 @@
+catalog_id,catalog_path,reason
+RL-AABD123B1625,bloomberg/02_market/em/USD_Index_DXY_Daily.csv,"Third DXY copy: same 1995-2025 range and row count as RL-36290DAB949B but a different sha256 and size (140,905 vs 149,281). Not used - RL-36290DAB949B chosen as the EM-17 task output with explicit provenance."
+RL-E90AD131D587,bloomberg/04_macro/USD_Index_DXY_Intraday.csv,Byte-identical duplicate of RL-B4C76E222224 despite the 'Intraday' name; catalog marks golden_source=N. Confirms the earlier suspicion that the filename is wrong.
+RL-48DA2EB8968B,bloomberg/02_market/em/EM-27_CLP-Curncy_PX-LAST_2009-2025.csv,"CLP spot, but starts 2015-01-02 (2,724 rows) despite the 2009 filename, and is on a different pricing source. Five years short of the study window. USDCLP pulled fresh instead."
