@@ -6,7 +6,7 @@ AUD,3 roll and non-positive exclusions,2963,0.0,applied upstream in 03/04; count
 AUD,4 long-span returns (> 5 cal days),2963,0.0,DD-14
 AUD,5 iron ore first 8 trading days (DD-12),1023,1940.0,average-price settlement; w = (N-k+1)/N
 AUD,6 FINAL N contemporaneous,1023,,2013-04-09 -> 2025-09-10
-AUD,7 FINAL N predictive (h=1),1022,1.0,last dates have no lead
+AUD,7 FINAL N predictive (h=1),1023,0.0,"no lead at sample end, or the target is a long-span return"
 CAD,0 union of dates,4174,,any required series has a row
 CAD,1 inner join: all required series valid,3766,408.0,bcom_perp missing 407; dc missing 402; d_dollar missing 78; ds missing 74
 CAD,2 pair start date,3766,0.0,2010-01-04
@@ -14,7 +14,7 @@ CAD,3 roll and non-positive exclusions,3766,0.0,applied upstream in 03/04; count
 CAD,4 long-span returns (> 5 cal days),3766,0.0,DD-14
 CAD,5 iron ore early-month restriction,3766,0.0,not applicable
 CAD,6 FINAL N contemporaneous,3766,,2010-01-05 -> 2025-09-19
-CAD,7 FINAL N predictive (h=1),3765,1.0,last dates have no lead
+CAD,7 FINAL N predictive (h=1),3765,1.0,"no lead at sample end, or the target is a long-span return"
 CLP,0 union of dates,4174,,any required series has a row
 CLP,1 inner join: all required series valid,3647,527.0,ds missing 277; bcom_perp missing 216; dc missing 133; d_dollar missing 78
 CLP,2 pair start date,3647,0.0,2010-01-04
@@ -22,7 +22,7 @@ CLP,3 roll and non-positive exclusions,3647,0.0,applied upstream in 03/04; count
 CLP,4 long-span returns (> 5 cal days),3629,18.0,DD-14
 CLP,5 iron ore early-month restriction,3629,0.0,not applicable
 CLP,6 FINAL N contemporaneous,3629,,2010-01-05 -> 2025-09-23
-CLP,7 FINAL N predictive (h=1),3628,1.0,last dates have no lead
+CLP,7 FINAL N predictive (h=1),3612,17.0,"no lead at sample end, or the target is a long-span return"
 NOK,0 union of dates,4174,,any required series has a row
 NOK,1 inner join: all required series valid,3774,400.0,bcom_perp missing 400; dc missing 239; d_dollar missing 78; ds missing 3
 NOK,2 pair start date,3774,0.0,2010-01-04
@@ -30,4 +30,4 @@ NOK,3 roll and non-positive exclusions,3774,0.0,applied upstream in 03/04; count
 NOK,4 long-span returns (> 5 cal days),3774,0.0,DD-14
 NOK,5 iron ore early-month restriction,3774,0.0,not applicable
 NOK,6 FINAL N contemporaneous,3774,,2010-01-05 -> 2025-09-23
-NOK,7 FINAL N predictive (h=1),3773,1.0,last dates have no lead
+NOK,7 FINAL N predictive (h=1),3774,0.0,"no lead at sample end, or the target is a long-span return"

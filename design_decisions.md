@@ -424,3 +424,60 @@ approximation alongside the full-DXY result.
 | 2026-10-26 | D6 | Sanity band (β 0.10–0.25) **removed** | No basis; risked anchoring. Replaced by a wide catastrophe gate plus a cited, non-binding literature prior. |
 | 2026-10-26 | D7 | AUD → methodological case study | Average settlement plus a smoothed underlying explain both the attenuation and the date-shift failure. Reporting it as a fourth comparison point would contaminate the comparison that is the contribution. |
 | 2026-10-26 | — | 23 numbered decisions consolidated to 7 | Four were named by the guide, seven implied by it, seven forced by the data, four were over-formalised elaborations. Same content and auditability, one signature per group. |
+| 2026-10-26 | D1 | Predictive target `ds_lead{h}` taken on the **currency's own trading calendar**, not by shifting the filtered panel; long-span targets masked (D4). `05` amended; it also writes `panel_AUD_full.csv` for the D7 full-sample and 1/w treatments, and `panel_pooled.csv` now excludes AUD as D7 requires. | **Alignment bug, found before any predictive estimate.** Shifting the filtered panel skipped every dropped row (rolls, long spans, AUD days 9+), so 5.0–16.1% of h=1 targets and 23.4–74.8% of h=5 targets were the wrong day (AUD up to 18 trading days off). Mis-targeting biases toward the very null that is half the contribution. Contemporaneous samples unchanged. |
+| 2026-10-26 | D1 | Holm family = **6**: {CAD, CLP, NOK} × {h=0, h=1}, the in-sample HAC tests of β = 0. `n_primary_tests` 8 → 6 in the config and `00`. | D1 sets the count at six when AUD is reported separately, and D7 does exactly that. The config's 8 predates D7. |
+| 2026-10-26 | D1, D6 | Estimation rules D1 required but never stated — fixed below, before `07` first ran. | D1 asks for "a stated rule"; none was written down. |
+
+**Estimation rules, fixed 2026-10-26 before `07_primary_estimation` existed.**
+
+1. *Newey–West.* Bartlett kernel, L = ⌊4(T/100)^(2/9)⌋ (Newey & West 1994), no
+   small-sample factor. The same rule serves Clark–West and the D6 Wald test.
+2. *Pooled two-way clustering.* Cameron, Gelbach & Miller (2011):
+   V = V_date + V_pair − V_obs, each one-way part scaled by G/(G−1); negative
+   eigenvalues, if any, set to zero. Critical values from t(G−1) with
+   G = min(G_date, G_pair) = **3, so t(2)**. Three clusters cannot support
+   reliable pair-clustered inference; D1 requires the pair dimension, so it is
+   kept and paired with the conservative small-G reference distribution.
+3. *Minimum detectable effect.* β_MDE = (q₀.₉₇₅ + q₀.₈₀)·SE(β̂), quantiles from
+   that row's reference distribution. The "R²" in D1's sentence is the
+   **partial R² of Δc**: b²Σ(Δc⊥)² / (b²Σ(Δc⊥)² + Σε̂²), with Δc⊥ the commodity
+   return net of the controls. At b = β̂ this is exactly the partial R² found.
+4. *Bug gate (D6).* |β̂| > 0.5 or **partial R² of Δc** > 0.40. The gate is about
+   commodity moves; total R² includes the dollar control, so it is reported but
+   not gated — the pre-freeze `sign_check.csv` gives ρ(NOK, DXY) = −0.70, a
+   total R² near 0.49 from the control alone. A tripped gate stops `07`/`08`
+   before any results table is written.
+5. *Clark–West.* Expanding window; the first forecast origin is the midpoint of
+   each sample's predictive observations; OLS re-estimated at every origin on
+   rows whose target date is on or before the origin; benchmark forecast 0
+   (driftless random walk); f = e²_RW − e²_M + ŷ²_M; one-sided at 5% with the
+   Newey–West SE. Not Holm-adjusted — it complements the six in-sample tests.
+   Out-of-sample R² and the MAE ratio are descriptive only.
+6. *Horizon.* h = 5 is the one-day return five trading days ahead, Δs_{t+5}, as
+   D1's equation and `05` define it — not the cumulative five-day return.
+7. *Economic units.* β̂·SD(Δc), in percent: the FX move that goes with a
+   one-standard-deviation commodity move on the estimation sample.
+8. *D6 date shift (option 3).* The signal is shifted on the commodity's own
+   trading calendar, not by panel row; Cov(β₀, β_shift) from stacked influence
+   functions under rule 1; one common sample for all three regressions.
+9. *D6 influence.* "The largest move" is the observation with the largest |Δc|
+   in each pair.
+
+*Recorded, not changed:* `06`'s date-shift test implements the superseded
+option-1 rule and shifts panel rows (for AUD's 8-day panel that pairs day 2 with
+day 8 of the previous month); its output stays on record and option 3 runs in
+`08`. The USDCHF placebo was never built — `load_curncy()` omits USDCHF, so
+`04`'s guard skipped it; `08` builds it from AT-04 through `data_compile`. The
+BCOM⊥ loading is full-sample: CAD and NOK forecasts are invariant to it
+(span{1, Δc, BCOM⊥} = span{1, Δc, BCOM}); for CLP, orthogonalized on HG1 but
+regressed on LME, it is a one-scalar look-ahead. `AT-03` (D3 WTI robustness) is
+not on this machine and cannot be pulled; that check is reported as not run.
+
+*Finding on the frozen pooled estimator, synthetic data only, before any pooled
+estimate.* Monte Carlo with 3 pairs, regressors correlated across pairs and a
+common date shock, β = 0 true, 400 replications: the frozen two-way estimator
+with the t(2) reference of rule 2 rejects **0.5%** of the time at nominal 5%
+(with a normal reference, 11%); date-only clustering 5.2%, Driscoll–Kraay 4.5%,
+heteroskedasticity-robust 10%. The frozen pooled test is therefore valid but
+conservative, and a pooled null carries little weight. **Raised for the
+supervisor, not applied** — the frozen estimator is what is reported.

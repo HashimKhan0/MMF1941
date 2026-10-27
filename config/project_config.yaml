@@ -151,8 +151,16 @@ frozen:
     date_shift_criterion: wald_on_difference
     date_shift_alpha: 0.05
     multiple_testing: holm
-    n_primary_tests: 8           # 4 pairs x 2 directions
+    # Amendment 2026-10-26: D1 sets six when AUD is reported separately (D7).
+    n_primary_tests: 6           # {CAD, CLP, NOK} x {h=0, h=1}
     power_target: 0.80           # for the minimum detectable effect
+    # Amendment 2026-10-26: rules D1 required but never stated, fixed before
+    # estimation. Full text in design_decisions.md, Amendments.
+    alpha: 0.05
+    hac_bandwidth: newey_west_1994      # Bartlett, L = floor(4 (T/100)^(2/9))
+    pooled_reference: t_G_minus_1       # G = min(dates, pairs) = 3 -> t(2)
+    oos_first_origin_fraction: 0.5      # expanding window starts at the midpoint
+    bug_gate_r2: partial_r2_of_dc       # not total R2, which carries the dollar
     placebo_outcome: USDCHF_PX_LAST  # non-commodity G10 control (DD-22)
     seed: 20261026                   # resampling / any fitted procedure
 

@@ -75,6 +75,8 @@ SEED = INF["seed"]
 PLACEBO = INF["placebo_outcome"]
 N_PRIMARY_TESTS = INF["n_primary_tests"]
 POWER_TARGET = INF["power_target"]
+ALPHA = INF["alpha"]
+OOS_FIRST_ORIGIN = INF["oos_first_origin_fraction"]
 
 # D6: a catastrophe gate, not an expectation band. The old sanity band was
 # removed 2026-10-26 - it had no basis and risked anchoring the result.
@@ -130,8 +132,16 @@ def _assert_frozen() -> None:
     assert NOK_DROP_DATES == ["2010-01-01"], NOK_DROP_DATES
     assert CLP_MAX_SPAN_DAYS == 5, CLP_MAX_SPAN_DAYS
 
-    assert N_PRIMARY_TESTS == 4 * 2
+    # D1/D7 as amended 2026-10-26: AUD is reported separately, so six tests
+    assert N_PRIMARY_TESTS == 3 * 2, N_PRIMARY_TESTS
     assert RETURN_TYPE == "log" and ROLL_RULE == "drop"
+
+    # estimation rules fixed before estimation (amendment 2026-10-26)
+    assert ALPHA == 0.05 and POWER_TARGET == 0.80
+    assert INF["hac_bandwidth"] == "newey_west_1994", INF["hac_bandwidth"]
+    assert INF["pooled_reference"] == "t_G_minus_1", INF["pooled_reference"]
+    assert OOS_FIRST_ORIGIN == 0.5, OOS_FIRST_ORIGIN
+    assert INF["bug_gate_r2"] == "partial_r2_of_dc", INF["bug_gate_r2"]
 
     # D6: the bug detector is a gate, never an expectation
     assert BUG_ABS_BETA_MAX >= 0.5 and BUG_R2_MAX >= 0.4
