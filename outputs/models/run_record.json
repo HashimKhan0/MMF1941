@@ -1,22 +1,17 @@
 {
-  "run_at": "2026-10-26T21:41:36",
-  "git_head": "326434d0f443224dcf199acc91ddac515b00e002",
-  "uncommitted": [
-    " M config/project_config.yaml",
-    " M design_decisions.md",
-    " M src/05_merge_analysis_panel.py",
-    "?? src/07_primary_estimation.py"
-  ],
+  "run_at": "2026-10-26T21:55:47",
+  "git_head": "",
+  "uncommitted": [],
   "sha256": {
-    "config/project_config.yaml": "5027281e65dd83148e26a0ba39ebef9c42e8d62d4316e9f6813aa6805ae9998a",
+    "config/project_config.yaml": "610e0a142ea3e7fbb498947d3d1d582af4ad184ab41762fcef91688597d47705",
     "design_decisions.md": "02a17790664993688a3e144f00067f20b1a2490f1f72240daa02ee6a67ded675",
     "data_compile.py": "26e78f70dfc5c4830c2c7a10fadd0a6bbc1b9c37729837dd00381b0a9c34e002",
     "src/05_merge_analysis_panel.py": "85c2fcebad905434894e0283ca2452b1da34d820192029f0fdace2a25dbf77fa",
-    "src/07_primary_estimation.py": "915da7b4347eb4039e9a5799da3d6c105554546a57408c0985ddc01326026792"
+    "src/07_primary_estimation.py": "863ee87cb7cc272b946b3064821b036fd92d5550f7e4df41fbd62b28263b58e9"
   },
-  "python": "3.11.5",
-  "platform": "Windows-10-10.0.26200-SP0",
-  "numpy": "1.26.2",
-  "pandas": "2.1.4",
-  "scipy": "1.11.4"
+  "python": "3.13.17",
+  "platform": "Linux-6.18.44-fc-v165-x86_64-with-glibc2.39",
+  "numpy": "2.5.3",
+  "pandas": "3.0.5",
+  "scipy": "1.18.1"
 }

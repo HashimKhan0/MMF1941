@@ -5,7 +5,9 @@
 Samples (D7):
   CAD, CLP, NOK  per-pair OLS, Newey-West HAC. h=0 and h=1 are the six tests in
                  the Holm family; h=5 is the prespecified secondary horizon.
-  POOLED         CAD + CLP + NOK, pair fixed effects, two-way clustered by date
+  POOLED         CAD + CLP + NOK, pair fixed effects, Driscoll-Kraay errors
+                 (D1 amended 2026-10-26); the frozen two-way result is also
+                 reported, same coefficient, different standard error
                  and pair.
   AUD            methodological case study - never pooled, never in the Holm
                  family. Four treatments side by side: first8 (the DD-12
@@ -105,15 +107,29 @@ def cluster_cov(u: np.ndarray, groups: np.ndarray) -> np.ndarray:
 
 
 # ---------------------------------------------------------------- estimators
-def fit(df: pd.DataFrame, y: str, x: list[str] = X_COLS, pooled: bool = False
-        ) -> tuple[dict, pd.DataFrame]:
+def driscoll_kraay(u: np.ndarray, dates: np.ndarray) -> np.ndarray:
+    """Driscoll-Kraay meat: Newey-West on the cross-sectionally summed scores.
+
+    Sums the per-observation scores within each date, then takes the Bartlett
+    long-run covariance of that time series. Asymptotics are T -> infinity with
+    N fixed, which is this panel's regime (3 pairs, ~3,700 dates) - unlike
+    two-way clustering, which needs the cluster count in EACH dimension to grow
+    and has only 3 in the pair dimension. D1, amended 2026-10-26.
+    """
+    h = pd.DataFrame(u).groupby(dates).sum().to_numpy()
+    return long_run_cov(h, nw_lags(len(h)))
+
+
+def fit(df: pd.DataFrame, y: str, x: list[str] = X_COLS, pooled: bool = False,
+        pooled_estimator: str | None = None) -> tuple[dict, pd.DataFrame]:
     """OLS of y on x; x[0] is the commodity return, the coefficient of interest.
 
     Per pair: intercept, Newey-West HAC, normal reference distribution.
     Pooled:   pair fixed effects absorbed by demeaning within pair (identical
-              slopes, by FWL), two-way clustered by date and pair (Cameron,
-              Gelbach & Miller 2011), t(G-1) reference with G = min(dates, pairs).
-              r2_total is then the within R2.
+              slopes, by FWL). Default errors are Driscoll-Kraay with a normal
+              reference (D1 as amended 2026-10-26); pass
+              pooled_estimator="two_way_cluster" for the frozen alternative,
+              which is still reported. r2_total is then the within R2.
     """
     d = df.dropna(subset=[y, *x])
     pairs = d["pair"].to_numpy()
@@ -131,10 +147,19 @@ def fit(df: pd.DataFrame, y: str, x: list[str] = X_COLS, pooled: bool = False
 
     if pooled:
         dates = d.index.to_numpy()
-        meat = (cluster_cov(u, dates) + cluster_cov(u, pairs)
-                - cluster_cov(u, np.arange(len(d))))
-        G = min(len(set(dates)), len(set(pairs)))
-        ref, how = stats.t(G - 1), f"two-way cluster date x pair, G={G}, t({G - 1})"
+        est = pooled_estimator or FZ.INF["pooled"]
+        if est == "two_way_cluster":
+            meat = (cluster_cov(u, dates) + cluster_cov(u, pairs)
+                    - cluster_cov(u, np.arange(len(d))))
+            G = min(len(set(dates)), len(set(pairs)))
+            ref = stats.t(G - 1)
+            how = f"two-way cluster date x pair, G={G}, t({G - 1})"
+        else:
+            meat = driscoll_kraay(u, dates)
+            T = len(set(dates))
+            ref = NORMAL
+            how = (f"Driscoll-Kraay, Bartlett L={nw_lags(T)}, T={T}, "
+                   f"N={len(set(pairs))}, normal")
     else:
         L = nw_lags(len(d))
         meat = long_run_cov(u, L)
@@ -256,6 +281,17 @@ def estimate() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
             res, coef = fit(df, Y_COL[h], pooled=sample == "POOLED")
             rows.append({"spec_id": spec, **key, "test": "ols", **res})
             coefs.append(coef.assign(spec_id=spec))
+
+            # D1 amended: the frozen two-way estimator is still reported, as a
+            # secondary row with the same coefficient and a different SE.
+            if sample == "POOLED":
+                alt = FZ.INF["pooled_also_reported"]
+                spec_alt = f"{sample}.{treatment}.h{h}.ols_{alt}"
+                res_alt, coef_alt = fit(df, Y_COL[h], pooled=True,
+                                        pooled_estimator=alt)
+                rows.append({"spec_id": spec_alt, **{**key, "role": "secondary"},
+                             "test": "ols", **res_alt})
+                coefs.append(coef_alt.assign(spec_id=spec_alt))
 
             if h > 0 and sample != "POOLED":
                 spec = f"{sample}.{treatment}.h{h}.cw"

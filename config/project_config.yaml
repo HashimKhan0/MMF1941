@@ -139,7 +139,16 @@ frozen:
 
   inference:
     per_pair: newey_west_hac
-    pooled: two_way_cluster      # by date and by pair
+    # AMENDED 2026-10-26 (D1). Two-way clustering needs ~20+ clusters per
+    # dimension; the pooled panel has THREE pairs. The project's own Monte Carlo
+    # (400 reps, beta=0 true) put the frozen estimator's size at 0.5% against a
+    # nominal 5% - the test is invalid for this cluster count, not merely
+    # conservative. Driscoll-Kraay came in at 4.5%: it handles cross-sectional
+    # dependence under T->infinity asymptotics, which is this panel's regime
+    # (3 entities, ~3,700 dates). The frozen two-way result is still reported
+    # alongside. This changes the standard error, never the coefficient.
+    pooled: driscoll_kraay
+    pooled_also_reported: two_way_cluster
     pooled_fixed_effects: pair
     oos_test: clark_west         # NOT Diebold-Mariano — model nests the RW
     # D6, frozen 2026-10-26: the date-shift criterion is a Wald test on the
@@ -158,10 +167,28 @@ frozen:
     # estimation. Full text in design_decisions.md, Amendments.
     alpha: 0.05
     hac_bandwidth: newey_west_1994      # Bartlett, L = floor(4 (T/100)^(2/9))
-    pooled_reference: t_G_minus_1       # G = min(dates, pairs) = 3 -> t(2)
+    pooled_reference: normal            # Driscoll-Kraay, T->infinity
+    pooled_reference_two_way: t_G_minus_1   # retained for the reported alternative
     oos_first_origin_fraction: 0.5      # expanding window starts at the midpoint
     bug_gate_r2: partial_r2_of_dc       # not total R2, which carries the dollar
-    placebo_outcome: USDCHF_PX_LAST  # non-commodity G10 control (DD-22)
+    # AMENDED 2026-10-26 (D6). USDCHF alone was a poor negative control: the
+    # Swiss franc is the canonical safe haven, so it is the MIRROR of the
+    # risk-appetite factor rather than inert to it. GBP is added - not a
+    # commodity currency, not a safe haven, and not a DXY-dominant weight.
+    # CHF is REPORTED AS FROZEN; GBP is added, never substituted.
+    placebo_outcomes:
+      - USDCHF_PX_LAST   # frozen; safe haven, expect negative loading
+      - GBPUSD_PX_LAST   # added; the clean negative control
+    placebo_outcome: USDCHF_PX_LAST
+
+    # D1 amendment 2026-10-27. Costs apply to the 08b strategy only - the
+    # baseline is a regression and takes no position. Declared, not estimated:
+    # no usable bid-ask series exists (the one bid column is unusable, D3).
+    transaction_costs:
+      half_spread_bps: {CAD: 1.0, NOK: 1.5, AUD: 1.0, CLP: 7.5}   # one way
+      stress_window: ["2020-01-01", "2020-06-30"]
+      stress_multiplier: 3.0
+      carry_and_financing: not_computed    # forward points never obtained
     seed: 20261026                   # resampling / any fitted procedure
 
 # D6. The old sanity band (beta 0.10-0.25, R2 0.05-0.25) was REMOVED 2026-10-26:

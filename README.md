@@ -18,21 +18,28 @@ was fixed in advance and the test had power — see **THE RULE** below.
 ## Layout
 
 ```
-project_1/
+MMF1941/
   README.md                     this file
+  FREEZE.md                     specification freeze: SHA-256 of every spec file and raw input
   design_decisions.md           frozen specification; the authority for every choice
-  CLAUDE.md                     working context for AI assistance
-  PHASE_0_PROVENANCE.md         what the raw files establish
-  PHASE_1_DECISIONS.md          reasoning behind the decisions, long form
+  CLAUDE.md                     working context for AI assistance; must stay at root
+  rqmts.txt                     environment record
+  project_1.md                  the proposal
+  project_1_details.md          the brief
   config/
     project_config.yaml         every shared constant; import, never repeat
   manifests/
     data_manifest.csv           one row per construct, 18 columns
     bloomberg_source_log.csv    one row per pulled series, 17 columns
+    source_inventory.csv        raw files resolved against the RiskLab catalog
+    source_inventory_rejected.csv  catalog records considered and rejected
     field_definitions.csv       mnemonic definitions and verification status
     sample_attrition.csv        rows surviving each join stage, per pair
+    forecast_origins.csv        information available at each origin
+    variable_dictionary.csv
   data/
     raw_bloomberg/              IMMUTABLE source files
+      PROVENANCE.md             origin of each raw file; which may be uploaded
     interim/                    cleaned series
     analytic/                   merged estimation panel
   src/
@@ -45,11 +52,27 @@ project_1/
     06_descriptive_diagnostics
     07_primary_estimation       frozen baseline only
     08_robustness               prespecified alternatives and placebos
+    08b_rf_dsr                  walk-forward random forest, deflated Sharpe
+    08c_costs                   transaction costs on the forest strategy
     09_tables_figures
   outputs/
     tables/  figures/  diagnostics/  models/
+  paper/
+    paper.tex  paper.pdf        the write-up
+  working/                      notes and exploration; not part of the archive
+    CHECKPOINT.md
+    claude_notes.md
+    PHASE_0_PROVENANCE.md       what the raw files establish
+    PHASE_1_DECISIONS.md        reasoning behind the decisions, long form
+    eda_0.ipynb
+    eda_1_data_validation.ipynb
+    prelim/
   data_compile.py               loader functions — use these, do not re-implement
 ```
+
+`working/` holds the reasoning trail: superseded plans, exploratory notebooks and
+long-form notes. Nothing in the pipeline reads from it. The archive the guide
+asks for is everything outside it.
 
 `data/raw_bloomberg/` is **immutable**. Never rewrite, re-sort, clean or re-save
 anything in it. Derived data goes to `interim/` or `analytic/`, never beside the
@@ -109,8 +132,11 @@ index**, base January 2006 = 100 — not ICE DXY. It reads 101.4155 on 2006-01-0
 92.36 on 2010-01-04 (DXY: ~77.5) and peaks at 128.45 in 2022 (DXY: ~114), with
 gaps on US federal holidays.
 
-Use it, but **call the column `USD_BROAD`**. A variable named `DXY` holding Fed
-data is the error that survives to publication. See DD-13.
+**Superseded 2026-10-26.** Genuine ICE DXY was in the library under a different
+filename (`EM-17_USD_Index_DXY_PX-LAST_Daily.csv`, catalogue `RL-36290DAB949B`)
+and is now the primary control, column `DXY_PX_LAST`. The Fed H.10 broad index
+above is retained as a robustness control under `USD_BROAD_PX_LAST` — still
+misnamed on disk, so never call that file DXY. See D3.
 
 ---
 
@@ -155,14 +181,19 @@ Contemporaneous (*h*=0, expect to reject H₀: β=0) and predictive (*h*=1 prima
 *h*=5 secondary; expect to fail to reject).
 
 Per-pair OLS with Newey–West HAC errors. Pooled panel with pair fixed effects and
-errors **two-way clustered by date and pair** — date clustering matters because
-the dollar induces cross-sectional dependence.
+errors from **Driscoll–Kraay** (D1, amended 2026-10-26). Two-way clustering was
+the frozen choice but needs the cluster count to grow in both dimensions and the
+panel has three pairs; a Monte Carlo put its size at 0.5% against a nominal 5%.
+The frozen two-way result is still reported on every pooled row. AUD is excluded
+from the pooled panel (D7).
 
 Out-of-sample: expanding window against a random walk, **Clark–West not
 Diebold–Mariano** (the model nests the benchmark; DM assumes non-nested). This
 deviates from the brief and is flagged in DD-11.
 
-Multiple testing: 8 tests, Holm-adjusted and unadjusted both reported.
+Multiple testing: **6 tests** — {CAD, CLP, NOK} × {h=0, h=1} — Holm-adjusted and
+unadjusted both reported. Six rather than eight because AUD is reported
+separately as a case study (D7).
 
 Report a **minimum detectable effect** alongside the null: *"we could have
 detected R² of X% at 80% power; we found Y%."*

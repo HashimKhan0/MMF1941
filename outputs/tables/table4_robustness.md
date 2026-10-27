@@ -26,10 +26,14 @@
 | long-span returns retained, span control | D4 | CLP | 1.0 | +0.0208 (0.0116) | +0.0186 | 0.072 | 3647.0 | run |
 | indeterminate-roll Brent observations retained | D4 | NOK | 0.0 | +0.0984 (0.0100) | +0.0984 | <0.001 | 3775.0 | run |
 | indeterminate-roll Brent observations retained | D4 | NOK | 1.0 | +0.0045 (0.0074) | +0.0045 | 0.539 | 3775.0 | run |
-| USDCHF as the outcome | D6 | AUD | 0.0 | -0.0018 (0.0054) | +0.0166 | 0.741 | 1023.0 | run |
-| USDCHF as the outcome | D6 | CAD | 0.0 | -0.0198 (0.0058) | +0.0613 | <0.001 | 3766.0 | run |
-| USDCHF as the outcome | D6 | CLP | 0.0 | -0.0157 (0.0081) | +0.1800 | 0.052 | 3627.0 | run |
-| USDCHF as the outcome | D6 | NOK | 0.0 | -0.0209 (0.0044) | +0.0984 | <0.001 | 3772.0 | run |
+| USDCHF as the outcome (frozen; safe haven) | D6 | AUD | 0.0 | -0.0018 (0.0054) | +0.0166 | 0.741 | 1023.0 | run |
+| GBPUSD as the outcome (added; clean control) | D6 | AUD | 0.0 | +0.0077 (0.0071) | +0.0166 | 0.277 | 1023.0 | run |
+| USDCHF as the outcome (frozen; safe haven) | D6 | CAD | 0.0 | -0.0198 (0.0058) | +0.0613 | <0.001 | 3766.0 | run |
+| GBPUSD as the outcome (added; clean control) | D6 | CAD | 0.0 | +0.0158 (0.0038) | +0.0613 | <0.001 | 3766.0 | run |
+| USDCHF as the outcome (frozen; safe haven) | D6 | CLP | 0.0 | -0.0157 (0.0081) | +0.1800 | 0.052 | 3627.0 | run |
+| GBPUSD as the outcome (added; clean control) | D6 | CLP | 0.0 | +0.0269 (0.0069) | +0.1800 | <0.001 | 3627.0 | run |
+| USDCHF as the outcome (frozen; safe haven) | D6 | NOK | 0.0 | -0.0209 (0.0044) | +0.0984 | <0.001 | 3772.0 | run |
+| GBPUSD as the outcome (added; clean control) | D6 | NOK | 0.0 | +0.0193 (0.0042) | +0.0984 | <0.001 | 3772.0 | run |
 | 2020-01-01 to 2020-06-30 dropped | D6 | AUD | 0.0 | +0.0135 (0.0081) | +0.0166 | 0.093 | 982.0 | run |
 | 2020-01-01 to 2020-06-30 dropped | D6 | AUD | 1.0 | +0.0032 (0.0112) | +0.0025 | 0.777 | 982.0 | run |
 | largest |dc| observation dropped | D6 | AUD | 0.0 | +0.0181 (0.0085) | +0.0166 | 0.032 | 1022.0 | run |

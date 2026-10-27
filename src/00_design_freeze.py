@@ -73,6 +73,7 @@ CLP_MAX_SPAN_DAYS = EXCL["clp_max_return_span_calendar_days"]
 INF = FROZEN["inference"]
 SEED = INF["seed"]
 PLACEBO = INF["placebo_outcome"]
+PLACEBOS = INF["placebo_outcomes"]
 N_PRIMARY_TESTS = INF["n_primary_tests"]
 POWER_TARGET = INF["power_target"]
 ALPHA = INF["alpha"]
@@ -139,7 +140,14 @@ def _assert_frozen() -> None:
     # estimation rules fixed before estimation (amendment 2026-10-26)
     assert ALPHA == 0.05 and POWER_TARGET == 0.80
     assert INF["hac_bandwidth"] == "newey_west_1994", INF["hac_bandwidth"]
-    assert INF["pooled_reference"] == "t_G_minus_1", INF["pooled_reference"]
+    # D1 amended 2026-10-26: Driscoll-Kraay primary, two-way still reported
+    assert INF["pooled"] == "driscoll_kraay", INF["pooled"]
+    assert INF["pooled_also_reported"] == "two_way_cluster"
+    assert INF["pooled_reference"] == "normal", INF["pooled_reference"]
+    assert INF["pooled_reference_two_way"] == "t_G_minus_1"
+    # D6 amended 2026-10-26: CHF kept as frozen, GBP added
+    assert INF["placebo_outcomes"][0] == "USDCHF_PX_LAST"
+    assert "GBPUSD_PX_LAST" in INF["placebo_outcomes"]
     assert OOS_FIRST_ORIGIN == 0.5, OOS_FIRST_ORIGIN
     assert INF["bug_gate_r2"] == "partial_r2_of_dc", INF["bug_gate_r2"]
 

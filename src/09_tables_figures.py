@@ -99,9 +99,13 @@ def table1(res: pd.DataFrame) -> None:
             "**Note.** Daily log returns, sign convention A (positive = the commodity currency "
             "appreciates against USD). Δs_{t+h} = α + β·Δc_t + γ·ΔDXY_t + δ·ΔBCOM⊥_t; h = 5 is the "
             "one-day return five trading days ahead. Per pair: Newey–West HAC, normal reference. "
-            "Pooled (CAD, CLP, NOK; AUD excluded by D7): pair fixed effects, two-way clustered by "
-            "date and pair, t(2) reference because G_pair = 3 — conservative by design (a synthetic "
-            "Monte Carlo puts its size at 0.5% for a nominal 5%), so a pooled null is weak evidence. "
+            "Pooled (CAD, CLP, NOK; AUD excluded by D7): pair fixed effects, Driscoll–Kraay "
+            "errors with a normal reference (D1 as amended 2026-10-26). The frozen two-way "
+            "estimator is reported on the second row of each horizon — same coefficient, different "
+            "standard error. Two-way clustering needs the cluster count to grow in both dimensions "
+            "and G_pair = 3; a synthetic Monte Carlo put its size at 0.5% against a nominal 5% "
+            "(Driscoll–Kraay 4.5%), so it is invalid here rather than merely conservative. The "
+            "amendment changes no coefficient and leaves both predictive nulls null. "
             "1-SD effect: β × SD(Δc) of the estimation sample, in percent. Holm across the six primary "
             "tests ({CAD, CLP, NOK} × {h = 0, 1}). MDE: two-sided 5%, 80% power, as partial R² of Δc. "
             "Rules fixed in design_decisions.md, Amendments, 2026-10-26.")
@@ -228,7 +232,7 @@ def fig1(fc: dict, res: pd.DataFrame) -> None:
                      loc="left", fontsize=9)
         ax.set_ylabel("next-day return, %")
     axes[0].legend(loc="lower right", bbox_to_anchor=(1, 1), ncols=2)  # on the title line
-    fig.suptitle("Figure 1 · Actual vs forecast next-day FX return, expanding-window test period (h = 1)",
+    fig.suptitle("Actual vs forecast next-day FX return, expanding-window test period (h = 1)",
                  x=0.01, ha="left", fontsize=10)
     footer(fig, "Daily. Model: the next-day FX return on today's commodity, DXY and orthogonalized BCOM returns, "
                 "refitted at every origin. Benchmark forecast is zero. Plotted at the target date.")
@@ -249,7 +253,7 @@ def fig2(fc: dict) -> None:
     label_ends(ax, ends)
     ax.set_ylabel(r"cumulative $e^2_{RW} - e^2_{model}$, %²")
     ax.legend(loc="lower left")
-    ax.set_title("Figure 2 · Cumulative squared-error gain of the model over the random walk (h = 1)",
+    ax.set_title("Cumulative squared-error gain of the model over the random walk (h = 1)",
                  loc="left", fontsize=10)
     footer(fig, "Daily, each pair's expanding-window test period. Above zero: the model has "
                 "accumulated less squared error than the zero forecast. Unadjusted (not Clark–West).")
@@ -271,7 +275,7 @@ def fig3(fc: dict, window: int = 250) -> None:
     label_ends(ax, ends)
     ax.set_ylabel(f"rolling OOS R², % ({window} forecasts)")
     ax.legend(loc="lower left")
-    ax.set_title("Figure 3 · Rolling out-of-sample R² against the random walk (h = 1)",
+    ax.set_title("Rolling out-of-sample R² against the random walk (h = 1)",
                  loc="left", fontsize=10)
     footer(fig, f"Daily. Trailing {window} forecast origins (~1 year), plotted at the window's last "
                 "target date. Below zero: the random walk forecast better over that window.")
@@ -295,7 +299,7 @@ def fig4() -> None:
     ax.set_xlabel("trading day k of the contract month")
     ax.set_ylabel(f"index, day {int(base['IRON_k'])} = 1")
     ax.legend(loc="lower left")
-    ax.set_title("Figure 4 · Average-price settlement: iron ore futures pass-through decays through "
+    ax.set_title("Average-price settlement: iron ore futures pass-through decays through "
                  "the month", loc="left", fontsize=10)
     footer(fig, f"Daily SGX SCO1, {int(d['n'].sum())} returns, days with ≥ 30 observations. Day 1 is "
                 "the roll day (return dropped, DD-05). Commodity series only - no FX data (DD-12).")
@@ -317,12 +321,193 @@ def fig5(shift: pd.DataFrame) -> None:
         ax.set_xlim(-0.5, 2.5)
         ax.set_title(f"{pair} · {g['verdict'].iloc[0]}", loc="left", fontsize=9)
     axes[0].set_ylabel(r"β on $\Delta s_t$, ±1.96 SE")
-    fig.suptitle("Figure 5 · Date-shift test: coefficient of FX at t on the commodity at t−1, t, t+1",
+    fig.suptitle("Date-shift test: coefficient of FX at t on the commodity at t−1, t, t+1",
                  x=0.01, ha="left", fontsize=10)
     footer(fig, "Daily; each panel has its own y-scale. D6 option 3: PASS if β at t exceeds both "
                 "shifts significantly (one-sided 5%) and in magnitude. AUD is the D7 case study.")
     fig.tight_layout(rect=(0, 0.06, 1, 1))
     fig.savefig(FIGS / "fig5_date_shift.png")
+    plt.close(fig)
+
+
+def fig6(res: pd.DataFrame) -> None:
+    """Coefficient plot: the whole result in one picture.
+
+    Same-day estimates sit far from zero with tight intervals; both predictive
+    horizons straddle it. This is Table 1 and the h=1/h=5 nulls at a glance.
+    """
+    d = res[(res.test == "ols") & res.spec_id.str.endswith(".ols")
+            & res["sample"].isin(PAIRS)].copy()
+    d = d[d.treatment == "baseline"]
+    fig, ax = plt.subplots(figsize=(8, 3.9))
+    offs = {0: +0.22, 1: 0.0, 5: -0.22}
+    mark = {0: "o", 1: "s", 5: "^"}
+    for i, pair in enumerate(PAIRS):
+        for h in (0, 1, 5):
+            r = d[(d["sample"] == pair) & (d.h == h)]
+            if r.empty:
+                continue
+            r = r.iloc[0]
+            y = i + offs[h]
+            ax.plot([r.ci_lo, r.ci_hi], [y, y], color=COLOR[pair], lw=1.4,
+                    alpha=1.0 if h == 0 else 0.55, solid_capstyle="butt", zorder=3)
+            ax.plot(r.estimate, y, mark[h], ms=5.5, color=COLOR[pair], zorder=4,
+                    alpha=1.0 if h == 0 else 0.55,
+                    mfc=COLOR[pair] if h == 0 else "#fcfcfb", mew=1.4)
+    # One faint band per pair instead of a gridline through the middle estimate:
+    # the three horizons are dodged, so a line at the tick would sit under h=1
+    # only and read as misalignment rather than as grouping.
+    ax.set_axisbelow(True)
+    ax.yaxis.grid(False)
+    for i in range(len(PAIRS)):
+        if i % 2 == 0:
+            ax.axhspan(i - 0.45, i + 0.45, color=GRID, alpha=0.45, lw=0, zorder=0)
+    ax.axvline(0, color=INK2, lw=0.9, zorder=1)
+    ax.set_yticks(range(len(PAIRS)), PAIRS)
+    ax.set_ylim(-0.55, len(PAIRS) - 0.45)
+    ax.set_xlabel(r"β on $\Delta c_t$, with 95% confidence interval")
+    for h, lab, yy in ((0, "same day (h=0)", 0.92), (1, "next day (h=1)", 0.80),
+                       (5, "five days (h=5)", 0.68)):
+        ax.plot([], [], mark[h], color=INK2, ms=5.5, alpha=1.0 if h == 0 else 0.55,
+                mfc=INK2 if h == 0 else "#fcfcfb", mew=1.4, label=lab)
+    ax.legend(loc="lower right", fontsize=8)
+    ax.set_title("Same-day transmission is large and precise;\n"
+                 "neither predictive horizon differs from zero", loc="left", fontsize=10)
+    footer(fig, "Daily log returns, Newey-West HAC. Filled markers h=0, hollow h=1 and h=5. "
+                "AUD is excluded (D7) and is reported separately in the case study.")
+    fig.tight_layout(rect=(0, 0.05, 1, 1))
+    fig.savefig(FIGS / "fig6_coefficients.png")
+    plt.close(fig)
+
+
+def fig7(rob: pd.DataFrame) -> None:
+    """Placebo loadings beside the real ones: the limitation, drawn."""
+    fig, ax = plt.subplots(figsize=(8, 3.8))
+    w, xs = 0.26, np.arange(len(PAIRS))
+    real = [float(RES_CACHE[(RES_CACHE["sample"] == p) & (RES_CACHE.h == 0)
+                            & (RES_CACHE.spec_id == f"{p}.baseline.h0.ols")].estimate.iloc[0])
+            for p in PAIRS]
+    gbp = [float(rob[rob.spec_id == f"{p}.placebo_gbp.h0.ols"].estimate.iloc[0]) for p in PAIRS]
+    chf = [float(rob[rob.spec_id == f"{p}.placebo_chf.h0.ols"].estimate.iloc[0]) for p in PAIRS]
+    ax.bar(xs - w, real, w, color=[COLOR[p] for p in PAIRS], label="commodity currency")
+    ax.bar(xs, gbp, w, color=MUTED, label="GBP placebo")
+    ax.bar(xs + w, chf, w, color=AXIS, label="CHF placebo")
+    for x, v in zip(xs - w, real):
+        ax.annotate(f"{v:+.3f}", (x, v), xytext=(0, 3), textcoords="offset points",
+                    ha="center", fontsize=7.5, color=INK2)
+    ax.axhline(0, color=INK2, lw=0.9)
+    ax.set_xticks(xs, PAIRS)
+    ax.set_ylabel(r"β on $\Delta c_t$")
+    lo, hi = ax.get_ylim()
+    ax.set_ylim(lo, hi * 1.45)
+    ax.legend(loc="upper left", fontsize=8, ncols=3)
+    ax.set_title("Both placebos load significantly, in opposite\n"
+                 "directions: a risk factor the dollar control misses",
+                 loc="left", fontsize=10)
+    footer(fig, "h=0, same specification with the placebo currency as the outcome. Sterling shares "
+                "the risk-appetite factor and loads positive; the franc is a safe haven and mirrors "
+                "it. All six are significant at 5% except CHF on CLP (p = 0.052).")
+    fig.tight_layout(rect=(0, 0.05, 1, 1))
+    fig.savefig(FIGS / "fig7_placebo.png")
+    plt.close(fig)
+
+
+def fig8(res: pd.DataFrame) -> None:
+    """Power: what the predictive test could have found, against what it found."""
+    d = res[(res.test == "ols") & (res.treatment == "baseline") & res["sample"].isin(PAIRS)]
+    fig, ax = plt.subplots(figsize=(8, 3.6))
+    w, xs = 0.3, np.arange(len(PAIRS))
+    for j, h in enumerate((1, 5)):
+        g = [d[(d["sample"] == p) & (d.h == h)].iloc[0] for p in PAIRS]
+        ax.bar(xs + (j - 0.5) * w, [100 * r.mde_r2_partial for r in g], w * 0.92,
+               color="#fcfcfb", edgecolor=AXIS, lw=1.0, hatch="///" if j else None,
+               label=f"detectable at 80% power, h={h}")
+        ax.bar(xs + (j - 0.5) * w, [100 * r.r2_partial for r in g], w * 0.92,
+               color=[COLOR[p] for p in PAIRS], alpha=1.0 if j == 0 else 0.5,
+               label=f"actually found, h={h}")
+    ax.set_xticks(xs, PAIRS)
+    ax.set_ylabel(r"partial $R^2$ of $\Delta c_t$, %")
+    ax.legend(loc="upper right", fontsize=8, ncols=2)
+    ax.set_ylim(0, ax.get_ylim()[1] * 1.35)
+    ax.set_title("The predictive nulls are informative: every test\n"
+                 "could have found an effect several times larger",
+                 loc="left", fontsize=10)
+    footer(fig, "Outlined bars are the minimum detectable effect (two-sided 5%, 80% power); "
+                "filled bars are the estimate. A null is only evidence when the outline clears "
+                "the fill by a margin.")
+    fig.tight_layout(rect=(0, 0.05, 1, 1))
+    fig.savefig(FIGS / "fig8_power.png")
+    plt.close(fig)
+
+
+def fig9() -> None:
+    """Costs: the gross-to-net collapse, and the assumption-free break-even.
+
+    Left, a dumbbell per specification from gross Sharpe to net. Right, the
+    half-spread at which each strategy breaks even, against the one charged.
+    A bar short of its marker means the strategy cannot pay its own costs.
+    """
+    path = TABLES / "results_costs.csv"
+    if not path.exists():
+        return
+    d = pd.read_csv(path).sort_values(["pair", "spec_id"], ascending=[True, False])
+    lab = [r.spec_id.replace(".rf", "").replace(".baseline", "") for r in d.itertuples()]
+    y = np.arange(len(d))
+    col = [COLOR[r.pair] for r in d.itertuples()]
+
+    fig, (axl, axr) = plt.subplots(1, 2, figsize=(9.2, 4.6),
+                                   gridspec_kw={"width_ratios": [1.15, 1]})
+
+    for ax in (axl, axr):
+        ax.set_axisbelow(True)
+        ax.yaxis.grid(False)
+        for i in y[::2]:
+            ax.axhspan(i - 0.5, i + 0.5, color=GRID, alpha=0.45, lw=0, zorder=0)
+
+    # left: gross -> net
+    for i, r in enumerate(d.itertuples()):
+        axl.plot([r.sharpe_gross, r.sharpe_net], [i, i], color=col[i], lw=1.3,
+                 alpha=0.55, zorder=3, solid_capstyle="butt")
+        axl.plot(r.sharpe_gross, i, "o", ms=5, mfc="#fcfcfb", mec=col[i], mew=1.5, zorder=4)
+        axl.plot(r.sharpe_net, i, "o", ms=5, color=col[i], zorder=4)
+    axl.axvline(0, color=INK2, lw=0.9, zorder=1)
+    axl.set_yticks(y, lab, fontsize=8)
+    axl.set_ylim(-0.5, len(d) + 0.3)
+    axl.set_xlabel("annualised Sharpe ratio")
+    axl.plot([], [], "o", ms=5, mfc="#fcfcfb", mec=INK2, mew=1.5, label="gross")
+    axl.plot([], [], "o", ms=5, color=INK2, label="net of costs")
+    axl.legend(loc="upper left", fontsize=8)
+    axl.set_title("gross to net", loc="left", fontsize=9, color=INK2)
+
+    # right: break-even vs charged
+    be = d["breakeven_half_spread_bps"].fillna(0.0)
+    axr.barh(y, be, 0.62, color=col, zorder=3)
+    for i, r in enumerate(d.itertuples()):
+        axr.plot(r.half_spread_bps, i, "|", ms=14, mew=2, color=INK, zorder=5)
+        if not (r.breakeven_half_spread_bps == r.breakeven_half_spread_bps):
+            axr.annotate("gross Sharpe < 0", (r.half_spread_bps + 0.25, i), fontsize=7,
+                         color=MUTED, va="center", zorder=5)
+    # a proxy entry: an inline marker would sit beside the real ticks and read as one
+    axr.plot([], [], "|", ms=14, mew=2, color=INK, label="half-spread charged")
+    axr.plot([], [], "s", ms=7, color=MUTED, label="break-even half-spread")
+    axr.legend(loc="lower right", fontsize=8)
+    axr.set_yticks(y, [""] * len(d))
+    axr.set_ylim(-0.5, len(d) + 0.3)
+    axr.set_xlim(0, max(d.half_spread_bps.max(), be.max()) * 1.18)
+    axr.set_xlabel("one-way half-spread, basis points")
+    axr.set_title("break-even cost vs cost charged", loc="left", fontsize=9, color=INK2)
+
+    fig.suptitle("No specification survives costs: six of the ten positive Sharpes turn "
+                 "negative,\nand the four that remain are AUD case-study runs with a deflated "
+                 "Sharpe below 0.19",
+                 x=0.01, ha="left", fontsize=10)
+    footer(fig, "Random-forest strategy only; the baseline regression takes no position. "
+                "Half-spreads are declared, not estimated (CAD/AUD 1.0 bp, NOK 1.5, CLP 7.5), "
+                "tripled through 2020 H1 and charged on the change in position. Break-even is "
+                "mean gross return divided by mean turnover, so it does not depend on the "
+                "assumed spread. Carry and financing are not computed.")
+    fig.tight_layout(rect=(0, 0.07, 1, 0.93))
+    fig.savefig(FIGS / "fig9_costs.png")
     plt.close(fig)
 
 
@@ -340,12 +525,18 @@ def main() -> None:
     table4(rob, shift)
     appendix()
 
+    global RES_CACHE
+    RES_CACHE = res
     fc = forecasts()
     fig1(fc, res)
     fig2(fc)
     fig3(fc)
     fig4()
     fig5(shift)
+    fig6(res)
+    fig7(rob)
+    fig8(res)
+    fig9()
     print(f"  wrote {len(list(TABLES.glob('*.md')))} tables, {len(list(FIGS.glob('*.png')))} figures")
 
 

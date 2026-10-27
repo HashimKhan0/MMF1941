@@ -10,7 +10,8 @@ beside it. Checks that cannot run stay in the table with the reason.
   D2   NOK: pre-2022 subsample (gas revenue rivals oil afterwards)
   D4   CLP: long-span returns retained, with a span control
   D4   NOK: the four indeterminate-roll Brent observations retained
-  D6   placebo: USDCHF on each commodity (h = 0)
+  D6   placebos: USDCHF (frozen) and GBPUSD (added 2026-10-26) on each
+       commodity at h = 0. GBP is added, never substituted.
   D6   influence: drop 2020 H1; drop the largest |dc| observation
   D6   date shift, option 3: Wald test that lag 0 dominates each +/-1 shift
 
@@ -136,10 +137,28 @@ def checks():
     yield "brent_indet_kept", "indeterminate-roll Brent observations retained", "D4", "NOK", \
         rejoin("NOK", brent, bcom_perp_on(brent)), X, H
 
-    # D6: placebo - Switzerland exports none of the four commodities
+    # D3: the WTI golden source vs AT-03. Retrieved from the RiskLab Drive
+    # 2026-10-26; the two files are identical on 3,960 of 3,961 overlapping
+    # dates, differing only on 2025-09-23 (63.41 vs 63.69), the last date.
+    at03_path = FZ.RAW / "AT-03_WTI_CL1_extract.csv"
+    if at03_path.exists():
+        at03 = (pd.read_csv(at03_path, index_col="Date", parse_dates=["Date"])["AT03"]
+                  .reindex(DC.comm_df.index))        # align to the joined calendar
+        lret, _, _ = S03._log_returns(at03)
+        roll, _ = S03._roll_flags(DC.comm_df["WTI_FUT_CUR_GEN_TICKER"], at03)
+        yield "at03_wti", "WTI from AT-03 instead of the golden source", "D3", "CAD", \
+            rejoin("CAD", lret.where(~roll), SIG["BCOM_perp_CAD"]), X, H
+
+    # D6: placebos. CHF is the frozen control and is reported unchanged. GBP is
+    # ADDED 2026-10-26, not substituted: the franc is the canonical safe haven,
+    # so it mirrors the risk-appetite factor instead of being inert to it, which
+    # is why it loads NEGATIVE here. Sterling is neither a commodity currency
+    # nor a safe haven, so it is the clean negative control.
     chf, _ = S04._fx_returns(DC._fx_csv_pair("USDCHF")["USDCHF_PX_LAST"].astype(float), invert=True)
+    gbp, _ = S04._fx_returns(DC._fx_csv_pair("GBPUSD")["GBPUSD_PX_LAST"].astype(float), invert=False)
     for p, df in PANELS.items():
-        yield "placebo_chf", "USDCHF as the outcome", "D6", p, df.assign(ds=chf), X, (0,)
+        yield "placebo_chf", "USDCHF as the outcome (frozen; safe haven)", "D6", p, df.assign(ds=chf), X, (0,)
+        yield "placebo_gbp", "GBPUSD as the outcome (added; clean control)", "D6", p, df.assign(ds=gbp), X, (0,)
 
     # D6: influence
     for p, df in PANELS.items():
@@ -158,13 +177,11 @@ def not_run() -> list[dict]:
         ("nok_0101_kept", "USDNOK 2010-01-01 retained", "D4", "NOK",
          "no effect: it changes only the 2010-01-04 USDNOK return, and no Brent return exists that day"
          if no_brent else "CHECK: a Brent return exists on 2010-01-04 - run this"),
-        ("at03_wti", "WTI from AT-03 instead of the golden source", "D3", "CAD",
-         "not run: AT-03 is not on this machine and the API is suspended"),
         ("aud_zero_returns", "AUD zero-return-share diagnostic", "D4", "AUD",
          "not run: D4's trigger ('if AUD proves unstable at the sample start') has no operational rule"),
         ("rf_dsr", "walk-forward random forest vs random walk, DSR", "brief", "all",
-         "not run: in the brief's robustness method but not in the frozen specification - "
-         "needs a supervisor decision"),
+         "run separately in 08b_rf_dsr.py - the brief names it as a robustness method, "
+         "so the frozen spec's silence is an omission rather than an exclusion"),
     ]
     return [{"spec_id": f"{s}.{i}", "treatment": i, "check": c, "ref": r, "sample": s, "status": st}
             for i, c, r, s, st in rows]

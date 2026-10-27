@@ -1,14 +1,33 @@
-# Raw provider data is immutable and not versioned here.
-# Provenance lives in manifests/bloomberg_source_log.csv (with SHA-256 hashes)
-# and manifests/data_manifest.csv.
-data/raw_bloomberg/
+# --- Raw data -------------------------------------------------------------
+# Provider files from the RiskLab library are never versioned or uploaded.
+# Provenance for all of them is in data/raw_bloomberg/PROVENANCE.md,
+# manifests/source_inventory.csv and manifests/bloomberg_source_log.csv,
+# each with the catalog ID and SHA-256 needed to resolve the exact bytes.
+data/raw_bloomberg/AT-04_Daily_Spot_Prices_G10_FX_Pairs_Daily_2000_2025.csv
+data/raw_bloomberg/EM-17_USD_Index_DXY_PX-LAST_Daily.csv
+data/raw_bloomberg/USD_Index_DXY_Daily.csv
+data/raw_bloomberg/Commodity_Index_BCOM_Price_Daily.csv
+data/raw_bloomberg/Crude_Oil_WTI_Spot_Daily.csv
+data/raw_bloomberg/Copper_Price_Daily.xlsx
+data/raw_bloomberg/AT-03_WTI_CL1_extract.csv
+
+# BBG.xlsx is the student's own terminal pull and IS tracked and uploaded.
+!data/raw_bloomberg/BBG.xlsx
 
 # Derived data is rebuildable from raw + src/
 data/interim/
 data/analytic/
+CLAUDE.md
 
+# --- Environment ----------------------------------------------------------
 .claude
 __pycache__/
 *.pyc
 .venv
 .ipynb_checkpoints/
+
+# --- LaTeX build artifacts ------------------------------------------------
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.toc
